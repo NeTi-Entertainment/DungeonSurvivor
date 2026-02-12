@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://dackarvk4epog"]
+
+[ext_resource type="Script" uid="uid://bttnvnl7m0xww" path="res://Scripts/Weapons/Projectiles/SummonedSoldier.gd" id="1_f1eyq"]
+[ext_resource type="Texture2D" uid="uid://cmsjli8hydmtn" path="res://Assets/OppressedSoldier.png" id="2_05hr2"]
+[ext_resource type="PackedScene" uid="uid://bac1qtnleqdtm" path="res://Scenes/Weapons/Projectiles/SoldierSword.tscn" id="3_fwdua"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pw7jl"]
+radius = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uu87d"]
+
+[node name="SummonedSoldier" type="CharacterBody2D"]
+collision_mask = 3
+script = ExtResource("1_f1eyq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pw7jl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_05hr2")
+
+[node name="SoldierSword" parent="." instance=ExtResource("3_fwdua")]
+
+[node name="AttackTimer" type="Timer" parent="."]
+
+[node name="DetectionZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionZone"]
+shape = SubResource("CircleShape2D_uu87d")

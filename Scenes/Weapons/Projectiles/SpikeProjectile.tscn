@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://yfphj26arla4"]
+
+[ext_resource type="Script" uid="uid://bt8l7nm125gm" path="res://Scripts/Weapons/Projectiles/SpikeProjectile.gd" id="1_qn5k7"]
+[ext_resource type="Texture2D" uid="uid://c872gp7psolsi" path="res://Assets/SpikeMineDart.png" id="2_eug71"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ybgw"]
+size = Vector2(16, 8)
+
+[node name="SpikeProjectile" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_qn5k7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_eug71")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8ybgw")

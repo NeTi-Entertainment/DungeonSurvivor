@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfqclv172godd"]
+
+[ext_resource type="Script" uid="uid://cdgofyi7ad4p4" path="res://Scripts/Weapons/Projectiles/FirstFlameProjectile.gd" id="1_rsyqj"]
+[ext_resource type="Texture2D" uid="uid://c0yxck3rfaxvw" path="res://Assets/FirstFlame.png" id="1_s7nta"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s7nta"]
+radius = 6.0
+
+[node name="FirstFlameProjectile" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_rsyqj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_s7nta")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_s7nta")

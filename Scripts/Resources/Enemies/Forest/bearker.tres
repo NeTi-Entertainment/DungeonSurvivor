@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=3 format=3 uid="uid://wy75ak2h80s5"]
+
+[ext_resource type="Script" uid="uid://blvcdvkhmdghu" path="res://Scripts/Resources/EnemyStats.gd" id="1_1003d"]
+[ext_resource type="Texture2D" uid="uid://wwyynqjrlabe" path="res://Assets/bearker.png" id="2_mlvsa"]
+
+[resource]
+script = ExtResource("1_1003d")
+id = "enemy_015"
+name = "Bearker"
+texture = ExtResource("2_mlvsa")
+scale = 1.0
+max_hp = 100000
+armor = 5
+knockback_resistance = 0.95
+damage = 50
+speed = 260.0
+metadata/_custom_type_script = "uid://blvcdvkhmdghu"

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=3 format=3 uid="uid://b2yxyycncfwf3"]
+
+[ext_resource type="Script" uid="uid://blvcdvkhmdghu" path="res://Scripts/Resources/EnemyStats.gd" id="1_hvp25"]
+[ext_resource type="Texture2D" uid="uid://cfddfl0j1tlia" path="res://Assets/apeserver.png" id="2_cmcaj"]
+
+[resource]
+script = ExtResource("1_hvp25")
+id = "enemy_07"
+name = "Apeserver"
+texture = ExtResource("2_cmcaj")
+scale = 1.0
+max_hp = 350
+armor = 0
+knockback_resistance = 0.3
+damage = 18
+speed = 125.0
+metadata/_custom_type_script = "uid://blvcdvkhmdghu"

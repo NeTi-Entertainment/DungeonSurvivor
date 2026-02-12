@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4twsy2tjlubn"]
+
+[ext_resource type="Script" uid="uid://bxilg72dg3x34" path="res://Scripts/UI/ShopItem.gd" id="1_2jaaf"]
+
+[node name="ShopItem" type="PanelContainer"]
+script = ExtResource("1_2jaaf")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LevelLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="PriceLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="BuyButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2

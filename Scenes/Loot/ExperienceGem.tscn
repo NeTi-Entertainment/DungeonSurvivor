@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4qdrrhijx42n"]
+
+[ext_resource type="Script" uid="uid://c51n0y3w6yso6" path="res://Scripts/Loot/ExperienceGem.gd" id="1_fvx2c"]
+[ext_resource type="Texture2D" uid="uid://rw0kjmp2nwj1" path="res://Assets/ExpOrb.png" id="2_x30ne"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ofpne"]
+
+[node name="ExperienceGem" type="Area2D" groups=["magnetizable"]]
+script = ExtResource("1_fvx2c")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_x30ne")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ofpne")

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyw5i6dp0cxmk"]
+
+[ext_resource type="Script" uid="uid://dlusuui6v1y4n" path="res://Scripts/Weapons/Base/WeaponWhirlingAxes.gd" id="1_7nq8p"]
+
+[node name="WeaponWhirlingAxes" type="Node2D"]
+script = ExtResource("1_7nq8p")
+
+[node name="Rotator" type="Node2D" parent="."]
+
+[node name="CooldownTimer" type="Timer" parent="."]
+one_shot = true

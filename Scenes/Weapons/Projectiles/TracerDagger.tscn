@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cek0iou1nkn3m"]
+
+[ext_resource type="Script" uid="uid://bq85m07iyih1j" path="res://Scripts/Weapons/Projectiles/TracerDagger.gd" id="1_ssgdq"]
+[ext_resource type="Texture2D" uid="uid://bolecquwq6tyv" path="res://Assets/TracingDagger.png" id="2_rctsm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2wa00"]
+
+[node name="TracerDagger" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_ssgdq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_rctsm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_2wa00")

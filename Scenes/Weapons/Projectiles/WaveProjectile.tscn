@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cg0tdsbrjoqr3"]
+
+[ext_resource type="Script" uid="uid://dgsfxorr7bch7" path="res://Scripts/Weapons/Projectiles/WaveProjectile.gd" id="1_kiwg6"]
+[ext_resource type="Texture2D" uid="uid://ndw8i732yvx3" path="res://Assets/WaveBody.png" id="2_rvs2h"]
+[ext_resource type="Texture2D" uid="uid://cuum5qp128u76" path="res://Assets/WaveFoam.png" id="3_hqn34"]
+
+[node name="WaveProjectile" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_kiwg6")
+
+[node name="WaterBody" type="Polygon2D" parent="."]
+texture_repeat = 2
+texture = ExtResource("2_rvs2h")
+
+[node name="FoamEdge" type="Line2D" parent="."]
+texture_repeat = 2
+width = 16.0
+texture = ExtResource("3_hqn34")
+texture_mode = 1
+
+[node name="Hitbox" type="CollisionPolygon2D" parent="."]

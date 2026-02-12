@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dgkd2u3e2wbjq"]
+
+[ext_resource type="Script" uid="uid://cnffwig4315k2" path="res://Scripts/Weapons/Projectiles/TrisealBeam.gd" id="1_wtcbf"]
+[ext_resource type="Texture2D" uid="uid://cjmjr863buukt" path="res://Assets/Triseal.png" id="2_b8h6x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q8xow"]
+
+[node name="TrisealBeam" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_wtcbf")
+
+[node name="Line2D" type="Line2D" parent="."]
+texture_repeat = 2
+texture = ExtResource("2_b8h6x")
+texture_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_q8xow")

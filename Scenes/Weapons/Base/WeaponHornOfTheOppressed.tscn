@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dp415v5btex8h"]
+
+[ext_resource type="Script" uid="uid://c25ekhexixlyl" path="res://Scripts/Weapons/Base/WeaponHornOfTheOppressed.gd" id="1_fkhsa"]
+
+[node name="WeaponHornOfTheOppressed" type="Node2D"]
+script = ExtResource("1_fkhsa")
+
+[node name="CooldownTimer" type="Timer" parent="."]

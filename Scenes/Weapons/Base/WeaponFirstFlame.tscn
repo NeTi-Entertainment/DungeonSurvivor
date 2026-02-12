@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhlshp8tbh0dv"]
+
+[ext_resource type="Script" uid="uid://vsavq4vmqpwy" path="res://Scripts/Weapons/Base/WeaponFirstFlame.gd" id="1_sr6m0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sx04u"]
+radius = 300.0
+
+[node name="WeaponFirstFlame" type="Node2D"]
+script = ExtResource("1_sr6m0")
+
+[node name="DetectionZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionZone"]
+shape = SubResource("CircleShape2D_sx04u")
+
+[node name="CooldownTimer" type="Timer" parent="."]
+one_shot = true

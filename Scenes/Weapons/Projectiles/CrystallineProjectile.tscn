@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://btjgaipibr70k"]
+
+[ext_resource type="Script" uid="uid://bhdekag3n35i1" path="res://Scripts/Weapons/Projectiles/CrystallineProjectile.gd" id="1_m2xtb"]
+[ext_resource type="Texture2D" uid="uid://cvtqobwyxuxi3" path="res://Assets/CrystallineProjectile.png" id="2_k0nfu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cphup"]
+radius = 5.0
+
+[sub_resource type="Gradient" id="Gradient_w4edi"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 0.882353)
+
+[node name="CrystallineProjectile" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_m2xtb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cphup")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_k0nfu")
+
+[node name="Line2D" type="Line2D" parent="."]
+top_level = true
+light_mask = 0
+visibility_layer = 0
+width = 8.0
+gradient = SubResource("Gradient_w4edi")

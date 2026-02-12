@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=3 format=3 uid="uid://d3m0jlavoytyv"]
+
+[ext_resource type="Script" uid="uid://blvcdvkhmdghu" path="res://Scripts/Resources/EnemyStats.gd" id="1_ik4ns"]
+[ext_resource type="Texture2D" uid="uid://bw78koja74llb" path="res://Assets/biped.png" id="2_5eetm"]
+
+[resource]
+script = ExtResource("1_ik4ns")
+id = "enemy_05"
+name = "Biped"
+texture = ExtResource("2_5eetm")
+scale = 1.0
+max_hp = 600
+armor = 1
+knockback_resistance = 0.6
+damage = 15
+speed = 110.0
+metadata/_custom_type_script = "uid://blvcdvkhmdghu"

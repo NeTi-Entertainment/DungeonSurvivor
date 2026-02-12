@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=3 format=3 uid="uid://spq8qp3ltwmd"]
+
+[ext_resource type="Script" uid="uid://blvcdvkhmdghu" path="res://Scripts/Resources/EnemyStats.gd" id="1_syddo"]
+[ext_resource type="Texture2D" uid="uid://dw5r5jrvlr6mb" path="res://Assets/wolf-like-thing.png" id="2_6618h"]
+
+[resource]
+script = ExtResource("1_syddo")
+id = "enemy_01"
+name = "Wolf-like-thing"
+texture = ExtResource("2_6618h")
+scale = 1.0
+max_hp = 15
+armor = 0
+knockback_resistance = 0.0
+damage = 7
+speed = 100.0
+metadata/_custom_type_script = "uid://blvcdvkhmdghu"

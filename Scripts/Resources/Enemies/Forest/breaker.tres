@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=3 format=3 uid="uid://d23cpdn111b6"]
+
+[ext_resource type="Script" uid="uid://blvcdvkhmdghu" path="res://Scripts/Resources/EnemyStats.gd" id="1_j1ssh"]
+[ext_resource type="Texture2D" uid="uid://c7fpjde58evrk" path="res://Assets/breaker.png" id="2_fvui4"]
+
+[resource]
+script = ExtResource("1_j1ssh")
+id = "enemy_013"
+name = "Breaker"
+texture = ExtResource("2_fvui4")
+scale = 1.0
+max_hp = 22000
+armor = 3
+knockback_resistance = 0.85
+damage = 35
+speed = 220.0
+metadata/_custom_type_script = "uid://blvcdvkhmdghu"

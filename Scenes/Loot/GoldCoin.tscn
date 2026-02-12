@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhiifvrvi2ufk"]
+
+[ext_resource type="Script" uid="uid://dv6xv71di6kk8" path="res://Scripts/Loot/GoldCoin.gd" id="1_8sknu"]
+[ext_resource type="Texture2D" uid="uid://c01yc1mkjc60y" path="res://Assets/GoldCoin.png" id="2_s1142"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6snbj"]
+
+[node name="GoldCoin" type="Area2D" groups=["magnetizable"]]
+collision_layer = 0
+script = ExtResource("1_8sknu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6snbj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_s1142")

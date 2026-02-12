@@ -1,0 +1,595 @@
+[gd_scene load_steps=8 format=3 uid="uid://dpe1nooluswop"]
+
+[ext_resource type="Script" uid="uid://dy0vfrltiv6q7" path="res://Scripts/UI/MainMenu.gd" id="1_mjmdf"]
+[ext_resource type="Texture2D" uid="uid://d3ai3ad4ovdn4" path="res://icon.svg" id="2_72sra"]
+[ext_resource type="Script" uid="uid://y1t0uoktfsbp" path="res://Scripts/UI/ShopMenu.gd" id="2_t6w0q"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tt5f1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_853f1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8saeu"]
+bg_color = Color(0.322113, 0.650856, 0.752999, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8saeu"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mjmdf")
+
+[node name="CenterButtons" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ButtonStart" type="Button" parent="CenterButtons"]
+layout_mode = 2
+text = "Commencer"
+
+[node name="ButtonShop" type="Button" parent="CenterButtons"]
+layout_mode = 2
+text = "Boutique"
+
+[node name="ButtonForge" type="Button" parent="CenterButtons"]
+layout_mode = 2
+text = "Forge"
+
+[node name="ButtonQuit" type="Button" parent="CenterButtons"]
+layout_mode = 2
+text = "Quitter"
+
+[node name="TopRightButtons" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="ButtonLanguage" type="Button" parent="TopRightButtons"]
+layout_mode = 2
+text = "Lang"
+
+[node name="ButtonParameters" type="Button" parent="TopRightButtons"]
+layout_mode = 2
+text = "Param"
+
+[node name="ShopMenu" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tt5f1")
+script = ExtResource("2_t6w0q")
+
+[node name="ButtonCloseShop" type="Button" parent="ShopMenu"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -33.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = 36.0
+grow_horizontal = 0
+text = "X"
+
+[node name="Label" type="Label" parent="ShopMenu"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 93.0
+offset_bottom = 33.0
+text = "BOUTIQUE"
+
+[node name="GoldDisplay" type="Label" parent="ShopMenu"]
+layout_mode = 0
+offset_left = 545.0
+offset_top = 10.0
+offset_right = 585.0
+offset_bottom = 33.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ShopMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -198.0
+offset_top = -287.0
+offset_right = 199.0
+offset_bottom = 289.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ShopItemsContainer" type="VBoxContainer" parent="ShopMenu/ScrollContainer"]
+layout_mode = 2
+
+[node name="ForgeMenu" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_853f1")
+
+[node name="ButtonCloseForge" type="Button" parent="ForgeMenu"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -33.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = 36.0
+grow_horizontal = 0
+text = "X"
+
+[node name="Label" type="Label" parent="ForgeMenu"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 93.0
+offset_bottom = 33.0
+text = "FORGE"
+
+[node name="CharacterSelectMenu" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8saeu")
+
+[node name="ButtonCloseCharSelect" type="Button" parent="CharacterSelectMenu"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -33.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = 36.0
+grow_horizontal = 0
+text = "X"
+
+[node name="LeftContainer" type="ScrollContainer" parent="CharacterSelectMenu"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = 80.0
+offset_right = 530.0
+offset_bottom = -19.0
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="CharGrid" type="GridContainer" parent="CharacterSelectMenu/LeftContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 4
+
+[node name="BtnChar1" type="Button" parent="CharacterSelectMenu/LeftContainer/CharGrid"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "TOR-OB1"
+icon = ExtResource("2_72sra")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="BtnChar2" type="Button" parent="CharacterSelectMenu/LeftContainer/CharGrid"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Kat"
+icon = ExtResource("2_72sra")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="BtnChar3" type="Button" parent="CharacterSelectMenu/LeftContainer/CharGrid"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Zzokrugug"
+icon = ExtResource("2_72sra")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="BtnChar4" type="Button" parent="CharacterSelectMenu/LeftContainer/CharGrid"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Irvikktiti"
+icon = ExtResource("2_72sra")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="BtnChar5" type="Button" parent="CharacterSelectMenu/LeftContainer/CharGrid"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Krofhon"
+icon = ExtResource("2_72sra")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="BtnChar6" type="Button" parent="CharacterSelectMenu/LeftContainer/CharGrid"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Shaqur"
+icon = ExtResource("2_72sra")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="BtnChar7" type="Button" parent="CharacterSelectMenu/LeftContainer/CharGrid"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Khormol"
+icon = ExtResource("2_72sra")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="BtnChar8" type="Button" parent="CharacterSelectMenu/LeftContainer/CharGrid"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Perma"
+icon = ExtResource("2_72sra")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="BtnChar9" type="Button" parent="CharacterSelectMenu/LeftContainer/CharGrid"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Vigo"
+icon = ExtResource("2_72sra")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="BtnChar10" type="Button" parent="CharacterSelectMenu/LeftContainer/CharGrid"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Fram"
+icon = ExtResource("2_72sra")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="BtnChar11" type="Button" parent="CharacterSelectMenu/LeftContainer/CharGrid"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Naerum"
+icon = ExtResource("2_72sra")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="BtnChar12" type="Button" parent="CharacterSelectMenu/LeftContainer/CharGrid"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Sulphura"
+icon = ExtResource("2_72sra")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="BtnChar13" type="Button" parent="CharacterSelectMenu/LeftContainer/CharGrid"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Sseroghol"
+icon = ExtResource("2_72sra")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="BtnChar14" type="Button" parent="CharacterSelectMenu/LeftContainer/CharGrid"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Hojo"
+icon = ExtResource("2_72sra")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="BtnChar15" type="Button" parent="CharacterSelectMenu/LeftContainer/CharGrid"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Guhulgghuru"
+icon = ExtResource("2_72sra")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="BtnChar16" type="Button" parent="CharacterSelectMenu/LeftContainer/CharGrid"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Omocqitheqq"
+icon = ExtResource("2_72sra")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="BtnChar17" type="Button" parent="CharacterSelectMenu/LeftContainer/CharGrid"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Allucard"
+icon = ExtResource("2_72sra")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="BtnChar18" type="Button" parent="CharacterSelectMenu/LeftContainer/CharGrid"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Liv, Ficu & Aduj"
+icon = ExtResource("2_72sra")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="BtnChar19" type="Button" parent="CharacterSelectMenu/LeftContainer/CharGrid"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Gnarlhom"
+icon = ExtResource("2_72sra")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="InfoPanel" type="Panel" parent="CharacterSelectMenu"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -525.0
+offset_bottom = 291.0
+grow_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSelectMenu/InfoPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NameLabel" type="Label" parent="CharacterSelectMenu/InfoPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+label_settings = SubResource("LabelSettings_8saeu")
+
+[node name="DescLabel" type="RichTextLabel" parent="CharacterSelectMenu/InfoPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+fit_content = true
+
+[node name="ActionPanel" type="Panel" parent="CharacterSelectMenu"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -525.0
+offset_top = -291.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSelectMenu/ActionPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BtnCustomize" type="Button" parent="CharacterSelectMenu/ActionPanel/VBoxContainer"]
+layout_mode = 2
+text = "Personnalisation"
+
+[node name="BtnMode" type="Button" parent="CharacterSelectMenu/ActionPanel/VBoxContainer"]
+layout_mode = 2
+text = "Mode"
+
+[node name="BtnChallenge" type="Button" parent="CharacterSelectMenu/ActionPanel/VBoxContainer"]
+layout_mode = 2
+text = "Challenge"
+
+[node name="BtnStartGame" type="Button" parent="CharacterSelectMenu/ActionPanel/VBoxContainer"]
+layout_mode = 2
+text = "COMMENCER"
+
+[node name="CustomizePopup" type="Panel" parent="CharacterSelectMenu"]
+visible = false
+custom_minimum_size = Vector2(400, 600)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BtnCloseCustomize" type="Button" parent="CharacterSelectMenu/CustomizePopup"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -8.0
+offset_right = 4.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Valider"
+
+[node name="ModePopup" type="Panel" parent="CharacterSelectMenu"]
+visible = false
+custom_minimum_size = Vector2(400, 600)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BtnCloseMode" type="Button" parent="CharacterSelectMenu/ModePopup"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -18.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "X"
+
+[node name="ChallengePopup" type="Panel" parent="CharacterSelectMenu"]
+visible = false
+custom_minimum_size = Vector2(400, 600)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BtnCloseChallenge" type="Button" parent="CharacterSelectMenu/ChallengePopup"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -18.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "X"
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Node2D2" type="Node2D" parent="."]
+
+[node name="Node2D3" type="Node2D" parent="."]
+
+[node name="ParametersMenu" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ButtonCloseParams" type="Button" parent="ParametersMenu"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "X"
+
+[node name="Label" type="Label" parent="ParametersMenu"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "PARAMETRES"
+
+[node name="ButtonResetSave" type="Button" parent="ParametersMenu"]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -87.0
+offset_top = -15.5
+offset_right = 87.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Effacer la sauvegarde"
+
+[node name="DeleteConfirmDialog" type="ConfirmationDialog" parent="ParametersMenu"]
+ok_button_text = "Effacer"
+dialog_text = "Voulez-vous vraiment effacer toute votre progression ? Cette action est irreversible."
+cancel_button_text = "Annuler"

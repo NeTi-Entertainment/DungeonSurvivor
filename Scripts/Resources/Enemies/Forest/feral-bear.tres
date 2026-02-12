@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=3 format=3 uid="uid://c5o2ttdv8idoy"]
+
+[ext_resource type="Script" uid="uid://blvcdvkhmdghu" path="res://Scripts/Resources/EnemyStats.gd" id="1_mlw6d"]
+[ext_resource type="Texture2D" uid="uid://r3mhhobjyswy" path="res://Assets/feral-bear.png" id="2_cpved"]
+
+[resource]
+script = ExtResource("1_mlw6d")
+id = "enemy_011"
+name = "Feral Bear"
+texture = ExtResource("2_cpved")
+scale = 1.0
+max_hp = 4000
+armor = 2
+knockback_resistance = 0.75
+damage = 25
+speed = 180.0
+metadata/_custom_type_script = "uid://blvcdvkhmdghu"

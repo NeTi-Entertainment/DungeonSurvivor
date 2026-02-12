@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=3 format=3 uid="uid://nsfjamugd8ds"]
+
+[ext_resource type="Script" uid="uid://blvcdvkhmdghu" path="res://Scripts/Resources/EnemyStats.gd" id="1_byvng"]
+[ext_resource type="Texture2D" uid="uid://djpdy7rh5oh1x" path="res://Assets/jarre.png" id="2_gi1qi"]
+
+[resource]
+script = ExtResource("1_byvng")
+id = "enemy_012"
+name = "Jarre"
+texture = ExtResource("2_gi1qi")
+scale = 1.0
+max_hp = 15000
+armor = 2
+knockback_resistance = 0.8
+damage = 30
+speed = 200.0
+metadata/_custom_type_script = "uid://blvcdvkhmdghu"

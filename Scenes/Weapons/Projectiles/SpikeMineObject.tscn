@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://5atwngp127cv"]
+
+[ext_resource type="Script" uid="uid://b4s45ihfbun08" path="res://Scripts/Weapons/Projectiles/SpikeMineObject.gd" id="1_h6alg"]
+[ext_resource type="Texture2D" uid="uid://x54myculfj0l" path="res://Assets/SpikeMine.png" id="2_8ssd1"]
+
+[node name="SpikeMineObject" type="Node2D"]
+script = ExtResource("1_h6alg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_8ssd1")
+
+[node name="ExplosionTimer" type="Timer" parent="."]
+one_shot = true

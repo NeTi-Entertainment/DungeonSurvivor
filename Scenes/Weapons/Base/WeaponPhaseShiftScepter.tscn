@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkfr75q78kg7h"]
+
+[ext_resource type="Script" uid="uid://bp4kiegnw350h" path="res://Scripts/Weapons/Base/WeaponPhaseShiftScepter.gd" id="1_q53ua"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sqs55"]
+radius = 600.0
+
+[node name="WeaponPhaseShiftScepter" type="Node2D"]
+script = ExtResource("1_q53ua")
+
+[node name="DetectionZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionZone"]
+shape = SubResource("CircleShape2D_sqs55")
+
+[node name="CooldownTimer" type="Timer" parent="."]

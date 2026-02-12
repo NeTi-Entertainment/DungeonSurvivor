@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=3 format=3 uid="uid://bkle10ah2flb1"]
+
+[ext_resource type="Script" uid="uid://blvcdvkhmdghu" path="res://Scripts/Resources/EnemyStats.gd" id="1_fwdag"]
+[ext_resource type="Texture2D" uid="uid://cxgk26pkrekhc" path="res://Assets/jape.png" id="2_3lr8b"]
+
+[resource]
+script = ExtResource("1_fwdag")
+id = "enemy_014"
+name = "Jape"
+texture = ExtResource("2_3lr8b")
+scale = 1.0
+max_hp = 50000
+armor = 4
+knockback_resistance = 0.9
+damage = 40
+speed = 240.0
+metadata/_custom_type_script = "uid://blvcdvkhmdghu"

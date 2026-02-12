@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=3 format=3 uid="uid://ddw74mcs6535y"]
+
+[ext_resource type="Script" uid="uid://blvcdvkhmdghu" path="res://Scripts/Resources/EnemyStats.gd" id="1_os42h"]
+[ext_resource type="Texture2D" uid="uid://2hsiiq62ht1x" path="res://Assets/Voidling.png" id="2_a8jcc"]
+
+[resource]
+script = ExtResource("1_os42h")
+id = "enemy_03"
+name = "Squaddy"
+texture = ExtResource("2_a8jcc")
+scale = 1.0
+max_hp = 85
+armor = 0
+knockback_resistance = 0.1
+damage = 10
+speed = 110.0
+metadata/_custom_type_script = "uid://blvcdvkhmdghu"

@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://ddyjpxfyp0hjf"]
+
+[ext_resource type="Script" uid="uid://bbu05sllstxxo" path="res://Scripts/Weapons/Projectiles/FishingRodSwing.gd" id="1_xiqtl"]
+[ext_resource type="Texture2D" uid="uid://dwbbuqu8hieho" path="res://Assets/FishingRod.png" id="2_g2w2i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8pn58"]
+size = Vector2(64, 4)
+
+[sub_resource type="Gradient" id="Gradient_xiqtl"]
+colors = PackedColorArray(0.956863, 0.956863, 0.956863, 0, 0.956863, 0.956863, 0.956863, 0.588235)
+
+[node name="FishingRodSwing" type="Node2D"]
+script = ExtResource("1_xiqtl")
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(16, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(22, 0)
+shape = SubResource("RectangleShape2D_8pn58")
+
+[node name="Sprite2D" type="Sprite2D" parent="Hitbox"]
+position = Vector2(22, -2)
+texture = ExtResource("2_g2w2i")
+
+[node name="Tip" type="Marker2D" parent="Hitbox"]
+position = Vector2(47, 0)
+
+[node name="SwipeTrail" type="Line2D" parent="."]
+show_behind_parent = true
+top_level = true
+width = 20.0
+gradient = SubResource("Gradient_xiqtl")
+joint_mode = 2
+begin_cap_mode = 2

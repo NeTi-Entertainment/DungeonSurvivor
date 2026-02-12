@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=3 format=3 uid="uid://cnl05sdc8ejkw"]
+
+[ext_resource type="Script" uid="uid://blvcdvkhmdghu" path="res://Scripts/Resources/EnemyStats.gd" id="1_olipw"]
+[ext_resource type="Texture2D" uid="uid://c4et67ubf4jkf" path="res://Assets/boarped.png" id="2_2eng4"]
+
+[resource]
+script = ExtResource("1_olipw")
+id = "enemy_09"
+name = "Boarped"
+texture = ExtResource("2_2eng4")
+scale = 1.0
+max_hp = 2800
+armor = 3
+knockback_resistance = 0.8
+damage = 25
+speed = 130.0
+metadata/_custom_type_script = "uid://blvcdvkhmdghu"

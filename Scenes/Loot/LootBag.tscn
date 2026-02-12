@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8gm6gvwu084p"]
+
+[ext_resource type="Script" uid="uid://dm1dcvvk3qxr4" path="res://Scripts/Loot/LootBag.gd" id="1_0rtf5"]
+[ext_resource type="Texture2D" uid="uid://c7vssg37rpbe8" path="res://Assets/LootBag.png" id="2_mjb6m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6snbj"]
+
+[node name="LootBag" type="Area2D"]
+script = ExtResource("1_0rtf5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6snbj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_mjb6m")

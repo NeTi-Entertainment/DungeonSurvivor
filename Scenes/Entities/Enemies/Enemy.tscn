@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bfi3jj3i0g65f"]
+
+[ext_resource type="Script" uid="uid://ciepwgc3xqrsy" path="res://Scripts/Entities/Enemies/Enemy.gd" id="1_wovta"]
+[ext_resource type="Texture2D" uid="uid://2hsiiq62ht1x" path="res://Assets/Voidling.png" id="2_wovta"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j5yw3"]
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_wovta")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_wovta")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.8, 0.8)
+shape = SubResource("RectangleShape2D_j5yw3")

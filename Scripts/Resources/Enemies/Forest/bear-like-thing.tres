@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=3 format=3 uid="uid://coqmq2tls8py6"]
+
+[ext_resource type="Script" uid="uid://blvcdvkhmdghu" path="res://Scripts/Resources/EnemyStats.gd" id="1_1h76t"]
+[ext_resource type="Texture2D" uid="uid://yiq3tafv82af" path="res://Assets/bear-like-thing.png" id="2_hgf75"]
+
+[resource]
+script = ExtResource("1_1h76t")
+id = "enemy_06"
+name = "Bear-like-thing"
+texture = ExtResource("2_hgf75")
+scale = 1.0
+max_hp = 1200
+armor = 1
+knockback_resistance = 0.6
+damage = 18
+speed = 150.0
+metadata/_custom_type_script = "uid://blvcdvkhmdghu"

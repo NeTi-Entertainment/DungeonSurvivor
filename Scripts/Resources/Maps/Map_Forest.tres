@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="MapConfig" load_steps=4 format=3 uid="uid://crxb6o8iiink7"]
+
+[ext_resource type="Script" uid="uid://blvcdvkhmdghu" path="res://Scripts/Resources/EnemyStats.gd" id="1_ig1yh"]
+[ext_resource type="Script" uid="uid://chan2cn0pfrya" path="res://Scripts/Resources/MapConfig.gd" id="2_w7e6f"]
+[ext_resource type="Resource" uid="uid://bfrxxg1uhq8s2" path="res://Scripts/Resources/Enemies/Forest/ape-like-thing.tres" id="2_xfj27"]
+
+[resource]
+script = ExtResource("2_w7e6f")
+map_name = "Forêt Sombre"
+map_radius = 10000.0
+background_color = Color(0, 0, 0, 1)
+enemies_cycle_1 = Array[ExtResource("1_ig1yh")]([ExtResource("2_xfj27")])
+enemies_cycle_2 = Array[ExtResource("1_ig1yh")]([])
+enemies_cycle_3 = Array[ExtResource("1_ig1yh")]([])
+metadata/_custom_type_script = "uid://chan2cn0pfrya"

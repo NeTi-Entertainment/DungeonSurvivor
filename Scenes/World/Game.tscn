@@ -1,0 +1,171 @@
+[gd_scene load_steps=7 format=3 uid="uid://dixutc7nivfpx"]
+
+[ext_resource type="Script" uid="uid://cqmeoxf676vks" path="res://Scripts/Managers/Game.gd" id="1_j5yw3"]
+[ext_resource type="Texture2D" uid="uid://y37qmtpfafkh" path="res://Assets/GrassTile1.png" id="2_b2bpf"]
+[ext_resource type="Resource" uid="uid://crxb6o8iiink7" path="res://Scripts/Resources/Maps/Map_Forest.tres" id="2_x6kl1"]
+[ext_resource type="PackedScene" uid="uid://bggajvd2i6osp" path="res://Scenes/Entities/Player/Player.tscn" id="3_j5yw3"]
+[ext_resource type="Script" uid="uid://b882pw5sf0oxp" path="res://Scripts/UI/LootLogUI.gd" id="4_bvkne"]
+[ext_resource type="Script" uid="uid://ccxd61bmnbwih" path="res://Scripts/Managers/MapBorder.gd" id="6_m3ec3"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_j5yw3")
+current_map_config = ExtResource("2_x6kl1")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -5
+offset_left = -1963.0
+offset_top = -1992.0
+offset_right = 2037.0
+offset_bottom = 2008.0
+mouse_filter = 2
+texture = ExtResource("2_b2bpf")
+stretch_mode = 1
+
+[node name="Player" parent="." instance=ExtResource("3_j5yw3")]
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 11
+
+[node name="GameOverUI" type="Control" parent="CanvasLayer"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/GameOverUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = -21.0
+offset_right = 110.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.498039, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Vous êtes mort"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonReturn" type="Button" parent="CanvasLayer/GameOverUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.0
+offset_top = 26.0
+offset_right = 62.0
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Menu Principal"
+
+[node name="LevelUpUI" type="Control" parent="CanvasLayer"]
+visible = false
+modulate = Color(0, 0, 0, 0.588235)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/LevelUpUI"]
+layout_mode = 0
+offset_left = 466.0
+offset_top = 120.0
+offset_right = 744.0
+offset_bottom = 162.0
+theme_override_font_sizes/font_size = 30
+text = "NIVEAU SUPERIEUR"
+
+[node name="OptionsContainer" type="HBoxContainer" parent="CanvasLayer/LevelUpUI"]
+custom_minimum_size = Vector2(600, 300)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+
+[node name="Option1" type="Button" parent="CanvasLayer/LevelUpUI/OptionsContainer"]
+custom_minimum_size = Vector2(180, 250)
+layout_mode = 2
+text = "Nouvelle Arme"
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="Option2" type="Button" parent="CanvasLayer/LevelUpUI/OptionsContainer"]
+custom_minimum_size = Vector2(180, 250)
+layout_mode = 2
+text = "Nouvelle Arme"
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="Option3" type="Button" parent="CanvasLayer/LevelUpUI/OptionsContainer"]
+custom_minimum_size = Vector2(180, 250)
+layout_mode = 2
+text = "Nouvelle Arme"
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="QoLButtonsContainer" type="HBoxContainer" parent="CanvasLayer/LevelUpUI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -117.0
+offset_top = -150.0
+offset_right = 118.0
+offset_bottom = -110.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ButtonReroll" type="Button" parent="CanvasLayer/LevelUpUI/QoLButtonsContainer"]
+layout_mode = 2
+text = "Reroll [0]"
+
+[node name="ButtonBanish" type="Button" parent="CanvasLayer/LevelUpUI/QoLButtonsContainer"]
+layout_mode = 2
+text = "Banish [0]"
+
+[node name="ButtonSkip" type="Button" parent="CanvasLayer/LevelUpUI/QoLButtonsContainer"]
+layout_mode = 2
+text = "Skip [0]"
+
+[node name="LootLogContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = -110.0
+offset_right = 104.0
+offset_bottom = -70.0
+grow_vertical = 0
+script = ExtResource("4_bvkne")
+
+[node name="MapBorder" type="Node2D" parent="."]
+z_index = 10
+script = ExtResource("6_m3ec3")

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=3 format=3 uid="uid://wqkj5f6mem0s"]
+
+[ext_resource type="Script" uid="uid://blvcdvkhmdghu" path="res://Scripts/Resources/EnemyStats.gd" id="1_4yigj"]
+[ext_resource type="Texture2D" uid="uid://bps4gpr816pqs" path="res://Assets/wolfddy.png" id="2_5m50l"]
+
+[resource]
+script = ExtResource("1_4yigj")
+id = "enemy_08"
+name = "Wolfddy"
+texture = ExtResource("2_5m50l")
+scale = 1.0
+max_hp = 20
+armor = 0
+knockback_resistance = 0.0
+damage = 5
+speed = 100.0
+metadata/_custom_type_script = "uid://blvcdvkhmdghu"

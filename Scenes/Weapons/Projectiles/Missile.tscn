@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnpvb8ts6lln3"]
+
+[ext_resource type="Script" uid="uid://ckbhc6jve2ogn" path="res://Scripts/Weapons/Projectiles/Missile.gd" id="1_3tfo5"]
+[ext_resource type="Texture2D" uid="uid://d2qawrx2yvvdn" path="res://Assets/purifyring_missiles.png" id="2_3uo1l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aualx"]
+
+[node name="Missile" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_3tfo5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_3uo1l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_aualx")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

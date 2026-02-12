@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=3 format=3 uid="uid://bdwc5g37gjbr2"]
+
+[ext_resource type="Script" uid="uid://blvcdvkhmdghu" path="res://Scripts/Resources/EnemyStats.gd" id="1_umk4b"]
+[ext_resource type="Texture2D" uid="uid://cv6lmyqis5al1" path="res://Assets/observer.png" id="2_wfb4o"]
+
+[resource]
+script = ExtResource("1_umk4b")
+id = "enemy_04"
+name = "Observer"
+texture = ExtResource("2_wfb4o")
+scale = 1.0
+max_hp = 60
+armor = 0
+knockback_resistance = 0.2
+damage = 12
+speed = 330.0
+metadata/_custom_type_script = "uid://blvcdvkhmdghu"

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=3 format=3 uid="uid://bfrxxg1uhq8s2"]
+
+[ext_resource type="Script" uid="uid://blvcdvkhmdghu" path="res://Scripts/Resources/EnemyStats.gd" id="1_cr8jl"]
+[ext_resource type="Texture2D" uid="uid://bq6rqrfrps1gg" path="res://Assets/ape-like-thing.png" id="2_5klrj"]
+
+[resource]
+script = ExtResource("1_cr8jl")
+id = "enemy00"
+name = "Ape-like-thing"
+texture = ExtResource("2_5klrj")
+scale = 1.0
+max_hp = 20
+armor = 0
+knockback_resistance = 0.0
+damage = 5
+speed = 100.0
+metadata/_custom_type_script = "uid://blvcdvkhmdghu"

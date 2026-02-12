@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://bggajvd2i6osp"]
+
+[ext_resource type="Script" uid="uid://qt1qbndsumq" path="res://Scripts/Entities/Player/Player.gd" id="1_gntrk"]
+[ext_resource type="Texture2D" uid="uid://12pikid7fb0i" path="res://Assets/TOR-OB1.png" id="2_dewec"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gl6un"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b2bpf"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7lihs"]
+bg_color = Color(0, 0.598899, 0.947267, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j5yw3"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kldst"]
+bg_color = Color(2.09369e-06, 0.689454, 0.151274, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b2bpf"]
+radius = 64.0
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+script = ExtResource("1_gntrk")
+
+[node name="WeaponsHolder" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_dewec")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_gl6un")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="XPBar" type="ProgressBar" parent="."]
+offset_left = -64.0
+offset_top = -36.0
+offset_right = 64.0
+offset_bottom = -13.0
+scale = Vector2(1, 0.3)
+theme_override_styles/background = SubResource("StyleBoxFlat_b2bpf")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7lihs")
+show_percentage = false
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -64.0
+offset_top = -44.0
+offset_right = 64.0
+offset_bottom = -17.0
+scale = Vector2(1, 0.3)
+theme_override_styles/background = SubResource("StyleBoxFlat_j5yw3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_kldst")
+show_percentage = false
+
+[node name="PickupArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+shape = SubResource("CircleShape2D_b2bpf")

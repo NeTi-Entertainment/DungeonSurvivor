@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=3 format=3 uid="uid://buams6hwrsqox"]
+
+[ext_resource type="Script" uid="uid://blvcdvkhmdghu" path="res://Scripts/Resources/EnemyStats.gd" id="1_etv71"]
+[ext_resource type="Texture2D" uid="uid://37il554ymehl" path="res://Assets/boar-like-thing.png" id="2_5aibr"]
+
+[resource]
+script = ExtResource("1_etv71")
+id = "enemy_02"
+name = "Boar-like-thing"
+texture = ExtResource("2_5aibr")
+scale = 1.0
+max_hp = 150
+armor = 0
+knockback_resistance = 0.5
+damage = 7
+speed = 100.0
+metadata/_custom_type_script = "uid://blvcdvkhmdghu"

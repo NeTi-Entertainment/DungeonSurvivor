@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="AIAssistantResource" load_steps=5 format=3 uid="uid://cpos1uwaqj7co"]
+
+[ext_resource type="Resource" uid="uid://b0fti7g31ugs1" path="res://addons/ai_assistant_hub/llm_providers/gemini.tres" id="1_w2qw1"]
+[ext_resource type="Script" uid="uid://bjesyp67ql4um" path="res://addons/ai_assistant_hub/quick_prompts/ai_quick_prompt_resource.gd" id="2_vr4ln"]
+[ext_resource type="Script" uid="uid://by31tnga3gtav" path="res://addons/ai_assistant_hub/assistants/ai_assistant_resource.gd" id="3_873jb"]
+
+[sub_resource type="Resource" id="Resource_w2qw1"]
+script = ExtResource("2_vr4ln")
+action_name = ""
+action_prompt = ""
+response_target = 0
+code_placement = 0
+format_response_as_comment = false
+metadata/_custom_type_script = "uid://bjesyp67ql4um"
+
+[resource]
+script = ExtResource("3_873jb")
+type_name = "Flash Expert Godot"
+ai_model = "models/gemini-3-flash-preview"
+llm_provider = ExtResource("1_w2qw1")
+ai_description = "You are a professional Godot 4.4.1 expert. 
+Rules:
+1. Language: Always explain and comment in French, but write all code in English.
+2. Precision: Be concise. Explain the logic briefly before showing code.
+3. Code Modification: NEVER rewrite a whole script unless requested. Instead, specify the exact line to change or provide the code block to inject.
+4. Versioning: Use specific Godot 4.4.1 features (like Typed Arrays, new Tween syntax, or Lambda functions) where appropriate.
+5. Context: Refer to the provided documentation GDD_Dungeon_Survivor.pdf files for game mechanics and naming conventions.
+6. When implementing a new feature, if you don't do it yourself always describe the steps and where i have to go in each menu/submenu to get it done properly."
+use_custom_temperature = false
+custom_temperature = 0.5
+quick_prompts = Array[ExtResource("2_vr4ln")]([SubResource("Resource_w2qw1")])

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=3 format=3 uid="uid://c5mcj1ql8l0mh"]
+
+[ext_resource type="Script" uid="uid://blvcdvkhmdghu" path="res://Scripts/Resources/EnemyStats.gd" id="1_374af"]
+[ext_resource type="Texture2D" uid="uid://eesh0f4uth4l" path="res://Assets/runic-boar.png" id="2_3bfc3"]
+
+[resource]
+script = ExtResource("1_374af")
+id = "enemy_010"
+name = "Runic Boar"
+texture = ExtResource("2_3bfc3")
+scale = 1.0
+max_hp = 2500
+armor = 1
+knockback_resistance = 0.7
+damage = 20
+speed = 160.0
+metadata/_custom_type_script = "uid://blvcdvkhmdghu"
