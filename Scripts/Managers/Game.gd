@@ -5,6 +5,9 @@ var enemy_scene = preload("res://Scenes/Entities/Enemies/Enemy.tscn")
 
 var wave_manager: WaveManager
 var boss_manager: BossManager
+var victory_manager: VictoryManager
+
+var debug_manager: DebugManager
 
 var current_options = []
 
@@ -37,6 +40,9 @@ func _ready() -> void:
 	_start_game_timer()
 	_initialize_wave_manager()
 	_initialize_boss_manager()
+	_initialize_victory_manager()
+	
+	_initialize_debug_manager()
 	
 	# Connect the Button
 	button_return.pressed.connect(_on_return_pressed)
@@ -70,6 +76,12 @@ func _ready() -> void:
 			# Assure-toi que le MapBorder est au-dessus du sol (Z=0) et des ennemis (Z=1)
 			map_border.z_index = 5
 
+func _initialize_debug_manager() -> void:
+	"""Initialise le DebugManager pour les tests"""
+	debug_manager = DebugManager.new()
+	debug_manager.setup(player, self)
+	add_child(debug_manager)
+
 func _initialize_wave_manager() -> void:
 	"""Initialise et démarre le WaveManager"""
 	wave_manager = WaveManager.new()
@@ -89,8 +101,38 @@ func _initialize_boss_manager() -> void:
 
 func _on_final_boss_defeated() -> void:
 	"""Appelé quand le boss final (18min) est vaincu"""
-	print("[Game] Boss final vaincu - Portail de victoire disponible")
-	# TODO Phase 4 : Le VictoryManager spawne le portail ici
+	print("[Game] Boss final vaincu - Activation de la victoire")
+	
+	# Récupérer la position du boss mort
+	var boss_position = Vector2.ZERO
+	if boss_manager.active_bosses.size() > 0:
+		var last_boss = boss_manager.active_bosses[-1]
+		if is_instance_valid(last_boss):
+			boss_position = last_boss.global_position
+	
+	# Appeler le VictoryManager
+	victory_manager.on_final_boss_defeated(boss_position)
+
+func _initialize_victory_manager() -> void:
+	"""Initialise le VictoryManager"""
+	var victory_ui = $CanvasLayer/VictoryUI  # Référence à l'UI que tu viens de créer
+	
+	victory_manager = VictoryManager.new()
+	victory_manager.setup(player, current_map_config, self, victory_ui)
+	add_child(victory_manager)
+	
+	# Connexion au signal portal_used
+	victory_manager.portal_used.connect(_on_portal_used)
+	
+	print("[Game] VictoryManager initialisé")
+
+func _on_portal_used() -> void:
+	"""Appelé quand le joueur utilise le portail"""
+	print("[Game] Portail utilisé - Retour au menu")
+	
+	# Unpause et retour au menu
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
 
 func _setup_game_timer_connections() -> void:
 	"""Connecte les signaux du GameTimer"""

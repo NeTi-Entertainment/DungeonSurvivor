@@ -65,6 +65,10 @@ func _physics_process(delta: float) -> void:
 func take_damage(damage_amount: int, knockback_force: float = 0.0, knockback_dir: Vector2 = Vector2.ZERO) -> void:
 	if is_dying: return
 	
+	# Debug : One-shot mode
+	if GameData.debug_one_shot_mode:
+		damage_amount = 999999
+	
 	var final_damage = damage_amount
 	if stats and stats.armor > 0:
 		final_damage = max(1, damage_amount - stats.armor)

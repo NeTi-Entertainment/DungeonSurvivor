@@ -3,6 +3,8 @@ extends Node
 signal loot_collected(item_id, amount)
 signal run_stats_updated
 
+var debug_one_shot_mode: bool = false
+
 # --- XP CURVE CONFIGURATION (System Design) ---
 const XP_BASE = 5
 const XP_GROWTH = 10

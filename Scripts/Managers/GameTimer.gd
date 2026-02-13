@@ -22,14 +22,21 @@ signal boss_checkpoint(minute: int)
 # Émis quand le timer principal atteint 00:00
 signal game_time_over()
 
-# Émis quand le mode Reaper démarre (après refus du portail)
-signal reaper_mode_started()
+# Émis quand le mode POST_VICTORY démarre (boss final tué)
+signal post_victory_started()
+
+# Émis à 00:30 après la mort du boss final (disparition portail + spawn Reapers)
+signal reaper_time()
 
 # ============================================================================
 # ÉTATS
 # ============================================================================
 
-enum GamePhase { NORMAL, TIME_UP, REAPER_MODE }
+enum GamePhase { 
+	NORMAL,           # 20:00 → 00:00 (jeu normal)
+	TIME_UP_WAITING,  # 00:00 atteint mais boss final encore vivant
+	POST_VICTORY      # Boss final tué, chrono compte à l'envers (00:01, 00:02...)
+}
 
 # ============================================================================
 # CONSTANTES
@@ -43,15 +50,12 @@ const CYCLE_3_START: int = 720   # 12 minutes (1200 - 480)
 const BOSS_CHECKPOINTS: Array[int] = [3, 6, 9, 12, 15, 18]
 
 # Durée des silences avant chaque boss (en secondes)
-# Format: {minute_du_boss: durée_du_silence}
 const SILENCE_DURATIONS: Dictionary = {
-	3: 10.0,   # 10s de silence avant boss de 3min
-	6: 15.0,   # 15s de silence avant boss de 6min
-	9: 15.0,
-	12: 20.0,
-	15: 20.0,
-	18: 30.0   # 30s avant le boss final
+	3: 10.0, 6: 15.0, 9: 15.0, 12: 20.0, 15: 20.0, 18: 30.0
 }
+
+# Temps après victoire avant spawn des Reapers (30 secondes)
+const REAPER_SPAWN_DELAY: int = 30
 
 # ============================================================================
 # VARIABLES D'ÉTAT
@@ -60,12 +64,13 @@ const SILENCE_DURATIONS: Dictionary = {
 var current_phase: GamePhase = GamePhase.NORMAL
 var is_running: bool = false
 var time_remaining: int = GAME_DURATION
-var reaper_time_elapsed: int = 0  # Temps écoulé en mode Reaper (compte à l'envers)
+var post_victory_time: int = 0  # Temps écoulé APRÈS la victoire
 
 # Tracking des événements déjà déclenchés
 var triggered_cycles: Array[int] = []
 var triggered_bosses: Array[int] = []
 var is_in_silence: bool = false
+var reaper_time_triggered: bool = false
 
 # Timer interne
 var _tick_timer: Timer
@@ -79,7 +84,7 @@ func _ready() -> void:
 
 func _setup_timer() -> void:
 	_tick_timer = Timer.new()
-	_tick_timer.wait_time = 1.0  # Tick toutes les secondes
+	_tick_timer.wait_time = 1.0
 	_tick_timer.one_shot = false
 	_tick_timer.timeout.connect(_on_tick)
 	add_child(_tick_timer)
@@ -97,17 +102,16 @@ func start_game() -> void:
 	# Reset complet
 	current_phase = GamePhase.NORMAL
 	time_remaining = GAME_DURATION
-	reaper_time_elapsed = 0
+	post_victory_time = 0
 	triggered_cycles.clear()
 	triggered_bosses.clear()
 	is_in_silence = false
+	reaper_time_triggered = false
 	
 	is_running = true
 	_tick_timer.start()
 	
-	# Émission initiale pour l'UI
 	time_updated.emit(time_remaining, _format_time(time_remaining))
-	
 	print("[GameTimer] Jeu démarré - Durée: %d secondes" % GAME_DURATION)
 
 func stop_game() -> void:
@@ -128,17 +132,17 @@ func resume_game() -> void:
 		return
 	_tick_timer.paused = false
 
-func start_reaper_mode() -> void:
-	"""Active le mode Reaper (portail refusé)"""
-	if current_phase == GamePhase.REAPER_MODE:
-		push_warning("GameTimer: Mode Reaper déjà actif")
+func start_post_victory_mode() -> void:
+	"""Active le mode POST_VICTORY (appelé par VictoryManager quand boss final meurt)"""
+	if current_phase == GamePhase.POST_VICTORY:
+		push_warning("GameTimer: Mode POST_VICTORY déjà actif")
 		return
 	
-	current_phase = GamePhase.REAPER_MODE
-	reaper_time_elapsed = 0
-	reaper_mode_started.emit()
+	current_phase = GamePhase.POST_VICTORY
+	post_victory_time = 0
+	post_victory_started.emit()
 	
-	print("[GameTimer] MODE REAPER ACTIVÉ - Timer inversé démarré")
+	print("[GameTimer] MODE POST_VICTORY ACTIVÉ - Chrono inversé démarré")
 
 # ============================================================================
 # GETTERS
@@ -157,8 +161,8 @@ func get_current_cycle() -> int:
 
 func get_formatted_time() -> String:
 	"""Retourne le temps formaté (MM:SS)"""
-	if current_phase == GamePhase.REAPER_MODE:
-		return _format_time(reaper_time_elapsed)
+	if current_phase == GamePhase.POST_VICTORY:
+		return _format_time(post_victory_time)
 	else:
 		return _format_time(time_remaining)
 
@@ -180,51 +184,40 @@ func _on_tick() -> void:
 	match current_phase:
 		GamePhase.NORMAL:
 			_handle_normal_phase()
-		GamePhase.TIME_UP:
-			# Phase transitoire - rien à faire ici
-			pass
-		GamePhase.REAPER_MODE:
-			_handle_reaper_phase()
+		GamePhase.TIME_UP_WAITING:
+			_handle_time_up_waiting_phase()
+		GamePhase.POST_VICTORY:
+			_handle_post_victory_phase()
 
 func _handle_normal_phase() -> void:
 	"""Gestion du timer en phase normale (20:00 → 00:00)"""
 	time_remaining -= 1
-	
-	# Mise à jour UI
 	time_updated.emit(time_remaining, _format_time(time_remaining))
 	
-	# Calcul du temps écoulé (pour les checkpoints)
 	var elapsed_seconds = GAME_DURATION - time_remaining
-	var _elapsed_minutes = elapsed_seconds / 60
-	
-	# ========================================
-	# 1. VÉRIFICATION CHANGEMENTS DE CYCLE
-	# ========================================
 	var current_cycle = get_current_cycle()
+	
+	# Changements de cycle
 	if current_cycle not in triggered_cycles:
 		triggered_cycles.append(current_cycle)
-		if current_cycle > 1:  # Pas de signal pour le cycle 1 (début de jeu)
+		if current_cycle > 1:
 			cycle_changed.emit(current_cycle)
 			print("[GameTimer] Cycle changé → Cycle %d" % current_cycle)
 	
-	# ========================================
-	# 2. VÉRIFICATION BOSS CHECKPOINTS
-	# ========================================
+	# Boss checkpoints
 	for boss_minute in BOSS_CHECKPOINTS:
 		if boss_minute in triggered_bosses:
-			continue  # Déjà traité
+			continue
 		
-		var boss_time = boss_minute * 60  # Conversion en secondes
+		var boss_time = boss_minute * 60
 		var silence_duration = SILENCE_DURATIONS.get(boss_minute, 10.0)
 		var silence_start_time = boss_time - int(silence_duration)
 		
-		# Déclenchement du silence AVANT le boss
 		if elapsed_seconds == silence_start_time and not is_in_silence:
 			is_in_silence = true
 			silence_started.emit(silence_duration)
 			print("[GameTimer] Silence démarré - Durée: %.1fs avant boss de %dmin" % [silence_duration, boss_minute])
 		
-		# Déclenchement du boss (fin du silence)
 		if elapsed_seconds == boss_time:
 			is_in_silence = false
 			triggered_bosses.append(boss_minute)
@@ -232,21 +225,29 @@ func _handle_normal_phase() -> void:
 			boss_checkpoint.emit(boss_minute)
 			print("[GameTimer] BOSS CHECKPOINT → %d minutes" % boss_minute)
 	
-	# ========================================
-	# 3. FIN DU TIMER (00:00)
-	# ========================================
+	# Fin du timer : 00:00 atteint
 	if time_remaining <= 0:
-		current_phase = GamePhase.TIME_UP
+		time_remaining = 0  # On le force à 0 pour éviter les valeurs négatives
+		current_phase = GamePhase.TIME_UP_WAITING
 		game_time_over.emit()
-		print("[GameTimer] TEMPS ÉCOULÉ - Passage en phase TIME_UP")
-		# Note: Le VictoryManager va spawner le portail ici
+		print("[GameTimer] TEMPS ÉCOULÉ - Passage en TIME_UP_WAITING (attente mort boss final)")
 
-func _handle_reaper_phase() -> void:
-	"""Gestion du timer inversé en mode Reaper (00:00 → 00:01 → 00:02...)"""
-	reaper_time_elapsed += 1
+func _handle_time_up_waiting_phase() -> void:
+	"""Phase où le chrono est bloqué à 00:00 en attendant que le boss final meure"""
+	# On ne fait rien, le chrono reste à 00:00
+	# Le VictoryManager appellera start_post_victory_mode() quand le boss meurt
+	pass
+
+func _handle_post_victory_phase() -> void:
+	"""Gestion du timer inversé après victoire (00:00 → 00:01 → 00:02...)"""
+	post_victory_time += 1
+	time_updated.emit(post_victory_time, _format_time(post_victory_time))
 	
-	# Mise à jour UI avec le temps POSITIF
-	time_updated.emit(reaper_time_elapsed, _format_time(reaper_time_elapsed))
+	# À 00:30, on déclenche le spawn des Reapers
+	if post_victory_time == REAPER_SPAWN_DELAY and not reaper_time_triggered:
+		reaper_time_triggered = true
+		reaper_time.emit()
+		print("[GameTimer] REAPER TIME - 00:30 post-victoire atteint")
 
 func _format_time(seconds: int) -> String:
 	"""Convertit les secondes en format MM:SS"""
@@ -270,6 +271,11 @@ func force_trigger_boss(minute: int) -> void:
 func force_time_over() -> void:
 	"""[DEBUG] Force la fin du temps immédiatement"""
 	time_remaining = 0
-	current_phase = GamePhase.TIME_UP
+	current_phase = GamePhase.TIME_UP_WAITING
 	game_time_over.emit()
 	print("[GameTimer] [DEBUG] Fin de temps forcée")
+
+func force_post_victory() -> void:
+	"""[DEBUG] Force le mode POST_VICTORY"""
+	start_post_victory_mode()
+	print("[GameTimer] [DEBUG] Mode POST_VICTORY forcé")

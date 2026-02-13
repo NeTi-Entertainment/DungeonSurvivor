@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MapConfig" load_steps=19 format=3 uid="uid://crxb6o8iiink7"]
+[gd_resource type="Resource" script_class="MapConfig" load_steps=20 format=3 uid="uid://crxb6o8iiink7"]
 
 [ext_resource type="Resource" uid="uid://d23cpdn111b6" path="res://Scripts/Resources/Enemies/Forest/breaker.tres" id="1_0t3dq"]
 [ext_resource type="Script" uid="uid://blvcdvkhmdghu" path="res://Scripts/Resources/EnemyStats.gd" id="1_ig1yh"]
@@ -18,6 +18,7 @@
 [ext_resource type="Resource" uid="uid://b2yxyycncfwf3" path="res://Scripts/Resources/Enemies/Forest/apeserver.tres" id="15_by2cg"]
 [ext_resource type="Resource" uid="uid://wqkj5f6mem0s" path="res://Scripts/Resources/Enemies/Forest/wolfddy.tres" id="16_padva"]
 [ext_resource type="Resource" uid="uid://cnl05sdc8ejkw" path="res://Scripts/Resources/Enemies/Forest/boarped.tres" id="17_rrfax"]
+[ext_resource type="Resource" uid="uid://c31v4q34fxqfm" path="res://Scripts/Resources/Enemies/reaper.tres" id="18_i4i1d"]
 
 [resource]
 script = ExtResource("2_w7e6f")
@@ -27,6 +28,7 @@ background_color = Color(0, 0, 0, 1)
 enemies_cycle_1 = Array[ExtResource("1_ig1yh")]([ExtResource("2_xfj27"), ExtResource("9_ud6h2"), ExtResource("10_f4xp8"), ExtResource("11_0kw51")])
 enemies_cycle_2 = Array[ExtResource("1_ig1yh")]([ExtResource("11_0kw51"), ExtResource("12_m8tiu"), ExtResource("13_xssxi"), ExtResource("14_wx350"), ExtResource("15_by2cg")])
 enemies_cycle_3 = Array[ExtResource("1_ig1yh")]([ExtResource("15_by2cg"), ExtResource("16_padva"), ExtResource("17_rrfax")])
+reaper_stats = ExtResource("18_i4i1d")
 spawn_rate_cycle_1 = 1.0
 spawn_rate_cycle_2 = 1.5
 spawn_rate_cycle_3 = 2.5

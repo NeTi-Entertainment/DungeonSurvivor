@@ -20,6 +20,9 @@ class_name MapConfig
 @export var enemies_cycle_2: Array[EnemyStats] # 6-12 min
 @export var enemies_cycle_3: Array[EnemyStats] # 12-18 min
 
+@export_group("Reaper")
+@export var reaper_stats: EnemyStats
+
 @export_group("Spawn Rates")
 @export_range(0.1, 10.0, 0.1) var spawn_rate_cycle_1: float = 1.0 # Ennemis par seconde
 @export_range(0.1, 10.0, 0.1) var spawn_rate_cycle_2: float = 1.5

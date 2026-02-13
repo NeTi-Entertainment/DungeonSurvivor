@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=3 format=3 uid="uid://c31v4q34fxqfm"]
+
+[ext_resource type="Script" uid="uid://blvcdvkhmdghu" path="res://Scripts/Resources/EnemyStats.gd" id="1_nyc66"]
+[ext_resource type="Texture2D" uid="uid://c3ujyb8uayj8r" path="res://Assets/reaper.png" id="2_qo60b"]
+
+[resource]
+script = ExtResource("1_nyc66")
+id = "enemy_00"
+name = "Reaper"
+texture = ExtResource("2_qo60b")
+scale = 1.0
+max_hp = 100000
+armor = 5
+knockback_resistance = 0.0
+damage = 999
+speed = 600.0
+metadata/_custom_type_script = "uid://blvcdvkhmdghu"

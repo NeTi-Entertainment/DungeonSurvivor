@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://ch0vx706popyy"]
+
+[ext_resource type="Script" uid="uid://bd64gh3e8o8s" path="res://Scripts/Entities/Neutrals/VictoryPortal.gd" id="1_2sf75"]
+[ext_resource type="Texture2D" uid="uid://bjlgmtjcj5hxu" path="res://Assets/portal.png" id="2_3ip0e"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n7xws"]
+
+[node name="VictoryPortal" type="Area2D"]
+script = ExtResource("1_2sf75")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_3ip0e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_n7xws")
+
+[node name="InteractionLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+pivot_offset = Vector2(0, -80)
+text = "Press E"
+horizontal_alignment = 1
