@@ -4,6 +4,7 @@ extends Node2D
 var enemy_scene = preload("res://Scenes/Entities/Enemies/Enemy.tscn")
 
 var wave_manager: WaveManager
+var boss_manager: BossManager
 
 var current_options = []
 
@@ -35,6 +36,7 @@ func _ready() -> void:
 	_setup_game_timer_connections()
 	_start_game_timer()
 	_initialize_wave_manager()
+	_initialize_boss_manager()
 	
 	# Connect the Button
 	button_return.pressed.connect(_on_return_pressed)
@@ -75,6 +77,20 @@ func _initialize_wave_manager() -> void:
 	add_child(wave_manager)
 	wave_manager.start_spawning()
 	print("[Game] WaveManager initialisé et démarré")
+
+func _initialize_boss_manager() -> void:
+	"""Initialise le BossManager"""
+	boss_manager = BossManager.new()
+	boss_manager.setup(player, current_map_config, self)
+	add_child(boss_manager)
+	# Connexion au signal de victoire (boss final)
+	boss_manager.final_boss_defeated.connect(_on_final_boss_defeated)
+	print("[Game] BossManager initialisé")
+
+func _on_final_boss_defeated() -> void:
+	"""Appelé quand le boss final (18min) est vaincu"""
+	print("[Game] Boss final vaincu - Portail de victoire disponible")
+	# TODO Phase 4 : Le VictoryManager spawne le portail ici
 
 func _setup_game_timer_connections() -> void:
 	"""Connecte les signaux du GameTimer"""

@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal enemy_died(enemy: Node2D)
+
 var stats: EnemyStats
 var current_hp: int
 var is_dying: bool = false
@@ -115,6 +117,8 @@ func die() -> void:
 		bag.setup(drop_data["id"], drop_data["type"])
 		_spawn_loot(bag)
 		
+	enemy_died.emit(self)
+	
 	queue_free()
 
 func apply_burn(dmg: int, tick_rate: float, duration: float):
