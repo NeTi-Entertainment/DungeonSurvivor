@@ -42,7 +42,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	# Vérifier si le joueur appuie sur E quand il est proche
-	if player_nearby and Input.is_action_just_pressed("ui_accept"):
+	if player_nearby and Input.is_action_just_pressed("interact"):
 		_activate_portal()
 
 # ============================================================================

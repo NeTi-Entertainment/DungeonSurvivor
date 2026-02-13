@@ -104,8 +104,7 @@ func _toggle_god_mode() -> void:
 	
 	god_mode_active = !god_mode_active
 	
-	if player.has("is_god_mode"):
-		player.is_god_mode = god_mode_active
+	player.is_god_mode = god_mode_active
 	
 	print("[Debug] God Mode : %s" % ("ON" if god_mode_active else "OFF"))
 
