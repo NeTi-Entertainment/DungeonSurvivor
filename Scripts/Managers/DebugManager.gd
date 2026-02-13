@@ -43,10 +43,10 @@ func setup(p_player: CharacterBody2D, p_game_scene: Node2D) -> void:
 	print("F5  : Ralentir le jeu (x0.5)")
 	print("F6  : Vitesse normale (x1.0)")
 	print("F7  : Accélérer le jeu (x2.0)")
-	print("F8  : Accélérer le jeu (x5.0)")
+	print("9   : Accélérer le jeu (x5.0)  [CHANGÉ: était F8]")
 	print("F9  : Kill tous les ennemis à l'écran")
 	print("F10 : Heal joueur au max")
-	print("F11 : +10 niveaux joueur")
+	print("0   : +1 niveau joueur  [CHANGÉ: était F11 avec +10 niveaux]")
 	print("F12 : Force victoire immédiate")
 	print("============================\n")
 
@@ -71,14 +71,14 @@ func _input(event: InputEvent) -> void:
 				_set_game_speed(1.0)
 			KEY_F7:
 				_set_game_speed(2.0)
-			KEY_F8:
+			KEY_9:  # Changé de F8 à 9 (F8 = touche système Godot)
 				_set_game_speed(5.0)
 			KEY_F9:
 				_kill_all_enemies()
 			KEY_F10:
 				_heal_player()
-			KEY_F11:
-				_add_player_levels(10)
+			KEY_0:  # Changé de F11 à 0 (+1 niveau au lieu de +10)
+				_add_player_levels(1)
 			KEY_F12:
 				_force_victory()
 

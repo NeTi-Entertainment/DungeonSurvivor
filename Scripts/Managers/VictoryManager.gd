@@ -126,9 +126,12 @@ func _spawn_portal() -> void:
 	"""Spawn le portail à la position de mort du boss final"""
 	portal_instance = portal_scene.instantiate()
 	portal_instance.global_position = boss_death_position
-	game_scene.add_child(portal_instance)
 	
-	# Connexion au signal d'activation du portail
+	# CRITIQUE : Utiliser call_deferred pour éviter l'erreur "flushing queries"
+	# Car on spawn pendant un callback de collision (boss mort)
+	game_scene.call_deferred("add_child", portal_instance)
+	
+	# Connexion au signal d'activation du portail (on le fait maintenant, pas après add_child)
 	if portal_instance.has_signal("portal_activated"):
 		portal_instance.portal_activated.connect(_on_portal_activated)
 	
