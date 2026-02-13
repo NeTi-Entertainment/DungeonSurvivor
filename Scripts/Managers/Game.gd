@@ -3,6 +3,8 @@ extends Node2D
 # On charge la scène de l'ennemi pour pouvoir la cloner
 var enemy_scene = preload("res://Scenes/Entities/Enemies/Enemy.tscn")
 
+var wave_manager: WaveManager
+
 var current_options = []
 
 @export var current_map_config: MapConfig
@@ -10,7 +12,6 @@ var current_options = []
 # Référence au joueur pour savoir où spawner autour
 @onready var map_border = $MapBorder
 @onready var player = $Player
-@onready var timer = $Timer
 
 # UI References
 @onready var game_over_ui: Control = $CanvasLayer/GameOverUI
@@ -29,7 +30,11 @@ var current_options = []
 var is_banish_active: bool = false
 
 func _ready() -> void:
-	timer.timeout.connect(_on_timer_timeout)
+	#timer.timeout.connect()
+	
+	_setup_game_timer_connections()
+	_start_game_timer()
+	_initialize_wave_manager()
 	
 	# Connect the Button
 	button_return.pressed.connect(_on_return_pressed)
@@ -63,6 +68,41 @@ func _ready() -> void:
 			# Assure-toi que le MapBorder est au-dessus du sol (Z=0) et des ennemis (Z=1)
 			map_border.z_index = 5
 
+func _initialize_wave_manager() -> void:
+	"""Initialise et démarre le WaveManager"""
+	wave_manager = WaveManager.new()
+	wave_manager.setup(player, current_map_config, self)
+	add_child(wave_manager)
+	wave_manager.start_spawning()
+	print("[Game] WaveManager initialisé et démarré")
+
+func _setup_game_timer_connections() -> void:
+	"""Connecte les signaux du GameTimer"""
+	GameTimer.time_updated.connect(_on_time_updated)
+	GameTimer.cycle_changed.connect(_on_cycle_changed)
+	GameTimer.game_time_over.connect(_on_game_time_over)
+
+func _on_time_updated(seconds_remaining: int, formatted_time: String) -> void:
+	"""Mise à jour de l'UI du timer (Phase 5)"""
+	# TODO : Mettre à jour ton Label de timer dans l'UI
+	# timer_label.text = formatted_time
+	pass
+
+func _on_cycle_changed(cycle_number: int) -> void:
+	"""Changement de cycle d'ennemis (Phase 2)"""
+	print("[Game] Cycle changé → Cycle %d" % cycle_number)
+	# TODO Phase 2 : Le WaveManager utilisera ce signal pour changer le pool d'ennemis
+
+func _on_game_time_over() -> void:
+	"""Temps de jeu écoulé - 20:00 → 00:00 (Phase 4)"""
+	print("[Game] Temps écoulé - Spawn du portail de victoire")
+	# TODO Phase 4 : Le VictoryManager spawne le portail ici
+
+func _start_game_timer() -> void:
+	"""Démarre le timer de jeu"""
+	GameTimer.start_game()
+	print("[Game] Timer démarré - Map: %s" % current_map_config.map_name)
+
 func _physics_process(_delta: float) -> void:
 	# Si on a une config de map et un joueur actif
 	if current_map_config and player:
@@ -72,23 +112,6 @@ func _physics_process(_delta: float) -> void:
 		if player.global_position.length() > radius:
 			# On le téléporte doucement à la limite exacte du cercle
 			player.global_position = player.global_position.limit_length(radius)
-
-func _on_timer_timeout() -> void:
-	if not current_map_config:
-		print("ERREUR : Pas de MapConfig assignée dans Game.gd !")
-		return
-	
-	var new_enemy = enemy_scene.instantiate()
-	var enemy_pool = current_map_config.enemies_cycle_1
-	
-	if enemy_pool.size() > 0:
-		var stats_to_apply = enemy_pool.pick_random()
-		var random_angle = randf() * TAU 
-		var spawn_distance = 1200.0
-		var spawn_offset = Vector2(cos(random_angle), sin(random_angle)) * spawn_distance
-		new_enemy.global_position = player.global_position + spawn_offset
-		add_child(new_enemy)
-		new_enemy.setup(stats_to_apply)
 
 func _on_player_died() -> void:
 	# 1. Show the Game Over screen
@@ -101,6 +124,8 @@ func _on_player_died() -> void:
 	
 	# 2. Pause the game (stops enemies and physics)
 	get_tree().paused = true
+	GameTimer.stop_game()
+	wave_manager.stop_spawning()
 
 func _on_victory() -> void:
 	GameData.finalize_run(true, 1.0)
@@ -108,13 +133,14 @@ func _on_victory() -> void:
 func _on_return_pressed() -> void:
 	# 1. Unpause the game (very important before changing scenes!)
 	get_tree().paused = false
-	
+	GameTimer.stop_game()
 	# 2. Go back to Main Menu
 	get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
 
 # --- LEVEL UP SYSTEM ---
 func _on_level_up(_new_level: int) -> void:
 	get_tree().paused = true
+	GameTimer.pause_game()
 	
 	# 1. Générer les 3 options aléatoires
 	current_options = generate_upgrade_options()
@@ -291,6 +317,7 @@ func _apply_option(option: Dictionary) -> void:
 func _resume_game() -> void:
 	level_up_ui.hide()
 	get_tree().paused = false
+	GameTimer.resume_game()
 
 # --- UTILITAIRES ---
 func get_projector_level() -> int:

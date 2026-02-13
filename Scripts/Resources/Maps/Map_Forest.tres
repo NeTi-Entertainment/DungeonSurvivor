@@ -1,15 +1,41 @@
-[gd_resource type="Resource" script_class="MapConfig" load_steps=4 format=3 uid="uid://crxb6o8iiink7"]
+[gd_resource type="Resource" script_class="MapConfig" load_steps=19 format=3 uid="uid://crxb6o8iiink7"]
 
+[ext_resource type="Resource" uid="uid://d23cpdn111b6" path="res://Scripts/Resources/Enemies/Forest/breaker.tres" id="1_0t3dq"]
 [ext_resource type="Script" uid="uid://blvcdvkhmdghu" path="res://Scripts/Resources/EnemyStats.gd" id="1_ig1yh"]
+[ext_resource type="Resource" uid="uid://bkle10ah2flb1" path="res://Scripts/Resources/Enemies/Forest/jape.tres" id="2_i4i1d"]
 [ext_resource type="Script" uid="uid://chan2cn0pfrya" path="res://Scripts/Resources/MapConfig.gd" id="2_w7e6f"]
 [ext_resource type="Resource" uid="uid://bfrxxg1uhq8s2" path="res://Scripts/Resources/Enemies/Forest/ape-like-thing.tres" id="2_xfj27"]
+[ext_resource type="Resource" uid="uid://wy75ak2h80s5" path="res://Scripts/Resources/Enemies/Forest/bearker.tres" id="3_ybpn0"]
+[ext_resource type="Resource" uid="uid://c5mcj1ql8l0mh" path="res://Scripts/Resources/Enemies/Forest/runic-boar.tres" id="4_sodyd"]
+[ext_resource type="Resource" uid="uid://c5o2ttdv8idoy" path="res://Scripts/Resources/Enemies/Forest/feral-bear.tres" id="5_py3k1"]
+[ext_resource type="Resource" uid="uid://nsfjamugd8ds" path="res://Scripts/Resources/Enemies/Forest/jarre.tres" id="6_wvtjp"]
+[ext_resource type="Resource" uid="uid://spq8qp3ltwmd" path="res://Scripts/Resources/Enemies/Forest/wolf-like-thing.tres" id="9_ud6h2"]
+[ext_resource type="Resource" uid="uid://buams6hwrsqox" path="res://Scripts/Resources/Enemies/Forest/boar-like-thing.tres" id="10_f4xp8"]
+[ext_resource type="Resource" uid="uid://ddw74mcs6535y" path="res://Scripts/Resources/Enemies/Forest/squaddy.tres" id="11_0kw51"]
+[ext_resource type="Resource" uid="uid://bdwc5g37gjbr2" path="res://Scripts/Resources/Enemies/Forest/observer.tres" id="12_m8tiu"]
+[ext_resource type="Resource" uid="uid://d3m0jlavoytyv" path="res://Scripts/Resources/Enemies/Forest/biped.tres" id="13_xssxi"]
+[ext_resource type="Resource" uid="uid://coqmq2tls8py6" path="res://Scripts/Resources/Enemies/Forest/bear-like-thing.tres" id="14_wx350"]
+[ext_resource type="Resource" uid="uid://b2yxyycncfwf3" path="res://Scripts/Resources/Enemies/Forest/apeserver.tres" id="15_by2cg"]
+[ext_resource type="Resource" uid="uid://wqkj5f6mem0s" path="res://Scripts/Resources/Enemies/Forest/wolfddy.tres" id="16_padva"]
+[ext_resource type="Resource" uid="uid://cnl05sdc8ejkw" path="res://Scripts/Resources/Enemies/Forest/boarped.tres" id="17_rrfax"]
 
 [resource]
 script = ExtResource("2_w7e6f")
 map_name = "Forêt Sombre"
 map_radius = 10000.0
 background_color = Color(0, 0, 0, 1)
-enemies_cycle_1 = Array[ExtResource("1_ig1yh")]([ExtResource("2_xfj27")])
-enemies_cycle_2 = Array[ExtResource("1_ig1yh")]([])
-enemies_cycle_3 = Array[ExtResource("1_ig1yh")]([])
+enemies_cycle_1 = Array[ExtResource("1_ig1yh")]([ExtResource("2_xfj27"), ExtResource("9_ud6h2"), ExtResource("10_f4xp8"), ExtResource("11_0kw51")])
+enemies_cycle_2 = Array[ExtResource("1_ig1yh")]([ExtResource("11_0kw51"), ExtResource("12_m8tiu"), ExtResource("13_xssxi"), ExtResource("14_wx350"), ExtResource("15_by2cg")])
+enemies_cycle_3 = Array[ExtResource("1_ig1yh")]([ExtResource("15_by2cg"), ExtResource("16_padva"), ExtResource("17_rrfax")])
+spawn_rate_cycle_1 = 1.0
+spawn_rate_cycle_2 = 1.5
+spawn_rate_cycle_3 = 2.5
+spawn_distance = 1000.0
+spawn_distance_variance = 200.0
+boss_3min = ExtResource("4_sodyd")
+boss_6min = ExtResource("5_py3k1")
+boss_9min = ExtResource("6_wvtjp")
+boss_12min = ExtResource("1_0t3dq")
+boss_15min = ExtResource("2_i4i1d")
+boss_18min = ExtResource("3_ybpn0")
 metadata/_custom_type_script = "uid://chan2cn0pfrya"
