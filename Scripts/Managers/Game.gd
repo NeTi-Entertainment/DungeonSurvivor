@@ -19,6 +19,7 @@ var current_options = []
 
 # UI References
 @onready var game_over_ui: Control = $CanvasLayer/GameOverUI
+@onready var victory_ui: Control = $CanvasLayer/VictoryUI
 @onready var button_return: Button = $CanvasLayer/GameOverUI/ButtonReturn
 
 # UI LEVEL UP
@@ -103,6 +104,8 @@ func _on_final_boss_defeated() -> void:
 	"""Appelé quand le boss final (18min) est vaincu"""
 	print("[Game] Boss final vaincu - Activation de la victoire")
 	
+	GameData.boss_defeated = true
+	
 	# Récupérer la position du boss mort
 	var boss_position = Vector2.ZERO
 	if boss_manager.active_bosses.size() > 0:
@@ -127,12 +130,9 @@ func _initialize_victory_manager() -> void:
 	print("[Game] VictoryManager initialisé")
 
 func _on_portal_used() -> void:
-	"""Appelé quand le joueur utilise le portail"""
-	print("[Game] Portail utilisé - Retour au menu")
-	
-	# Unpause et retour au menu
-	get_tree().paused = false
-	get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
+	victory_ui.show()
+	GameData.finalize_run(1.0)
+	get_tree().paused = true
 
 func _setup_game_timer_connections() -> void:
 	"""Connecte les signaux du GameTimer"""
@@ -172,21 +172,22 @@ func _physics_process(_delta: float) -> void:
 			player.global_position = player.global_position.limit_length(radius)
 
 func _on_player_died() -> void:
-	# 1. Show the Game Over screen
-	game_over_ui.show()
+	if GameData.boss_defeated:
+		victory_ui.show()
+		GameData.finalize_run(1.0)
+	else:
+		game_over_ui.show()
+		var save_ratio = player.saved_resources_ratio
+		GameData.finalize_run(save_ratio)
 	
-	# SAUVEGARDE DES LOOTS (Mort = false)
-	# On récupère le ratio de sauvegarde du joueur (ex: 0.5)
-	var save_ratio = player.saved_resources_ratio
-	GameData.finalize_run(false, save_ratio)
-	
-	# 2. Pause the game (stops enemies and physics)
 	get_tree().paused = true
 	GameTimer.stop_game()
 	wave_manager.stop_spawning()
 
 func _on_victory() -> void:
-	GameData.finalize_run(true, 1.0)
+	victory_ui.show()
+	GameData.finalize_run(1.0)
+	get_tree().paused = true
 
 func _on_return_pressed() -> void:
 	# 1. Unpause the game (very important before changing scenes!)

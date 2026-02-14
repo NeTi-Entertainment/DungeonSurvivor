@@ -149,14 +149,8 @@ func _on_portal_activated() -> void:
 	print("[VictoryManager] Portail utilisé - Fin de partie")
 	portal_used.emit()
 	
-	# Sauvegarde des ressources (victoire = 100%)
-	GameData.finalize_run(true, 1.0)
-	
-	# Arrêt du GameTimer
+	GameData.finalize_run(1.0)
 	GameTimer.stop_game()
-	
-	# Affichage de l'écran de fin
-	_show_end_screen()
 
 # ============================================================================
 # REAPERS
@@ -234,22 +228,22 @@ func _create_default_reaper_stats() -> EnemyStats:
 # END SCREEN
 # ============================================================================
 
-func _show_end_screen() -> void:
-	"""Affiche l'écran de fin simple avec bouton menu"""
+#func _show_end_screen() -> void:
+#	"""Affiche l'écran de fin simple avec bouton menu"""
 	# Pour l'instant, on affiche juste l'UI de victoire avec le bouton
 	# L'écran de score détaillé sera fait plus tard
 	
 	# Pause du jeu
-	get_tree().paused = true
+#	get_tree().paused = true
 	
 	# Affichage de l'UI (qui contient déjà le bouton retour menu)
-	victory_ui.show()
+#	victory_ui.show()
 	
 	# Cacher le titre VICTORY, afficher le bouton
-	if victory_ui.has_node("VictoryTitle"):
-		victory_ui.get_node("VictoryTitle").hide()
-	if victory_ui.has_node("EndScreenPanel"):
-		victory_ui.get_node("EndScreenPanel").show()
+#	if victory_ui.has_node("VictoryTitle"):
+#		victory_ui.get_node("VictoryTitle").hide()
+#	if victory_ui.has_node("EndScreenPanel"):
+#		victory_ui.get_node("EndScreenPanel").show()
 
 # ============================================================================
 # DEBUG

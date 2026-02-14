@@ -22,6 +22,7 @@ const SAVE_PATH = "user://savegame.save"
 var buffs_table = ["buff_buff", "buff_potion", "buff_magnet", "buff_nuke", "buff_freeze", "buff_dice", "buff_invincible", "buff_zeal", "buff_gold", "buff_repulsion"]
 
 var banished_items: Array = []
+var boss_defeated: bool = false
 
 # Inventaire permanent (Sauvegardé) : { "iron_scrap": 12, "void_dust": 5 }
 var material_inventory: Dictionary = {}
@@ -60,6 +61,7 @@ var buff_definitions = {
 
 func reset_run_state():
 	banished_items.clear()
+	boss_defeated = false
 
 func save_bank(run_gold: int):
 	total_banked_gold += run_gold
@@ -866,14 +868,13 @@ func add_run_material(item_id: String, amount: int = 1):
 		run_materials[item_id] = amount
 	loot_collected.emit(item_id, amount)
 
-func finalize_run(player_survived: bool, retention_ratio: float):
+func finalize_run(retention_ratio: float):
+	var actual_ratio = 1.0 if boss_defeated else retention_ratio
 	
 	for item_id in run_materials:
 		var amount = run_materials[item_id]
 		
-		# Si le joueur est mort, on applique le ratio (ex: 50%)
-		if not player_survived:
-			amount = floor(amount * retention_ratio)
+		amount = floor(amount * actual_ratio)
 		
 		if amount > 0:
 			if item_id in material_inventory:
