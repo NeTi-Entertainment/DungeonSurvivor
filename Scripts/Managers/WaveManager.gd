@@ -113,6 +113,9 @@ func _on_silence_started(duration: float) -> void:
 func _on_silence_ended() -> void:
 	"""Reprise du spawn après un silence"""
 	is_in_silence = false
+	if GameTimer.time_remaining <= 120:
+		print("[WaveManager] Boss final présent : Les vagues d'ennemis standards sont désactivées définitivement.")
+		return
 	start_spawning()
 	print("[WaveManager] Silence terminé - Reprise du spawn")
 

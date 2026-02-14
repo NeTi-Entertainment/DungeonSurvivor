@@ -9,6 +9,7 @@ id = "enemy_03"
 name = "Squaddy"
 texture = ExtResource("2_a8jcc")
 scale = 1.0
+hitbox_radius = 10.0
 max_hp = 85
 armor = 0
 knockback_resistance = 0.1

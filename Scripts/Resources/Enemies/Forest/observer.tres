@@ -9,6 +9,7 @@ id = "enemy_04"
 name = "Observer"
 texture = ExtResource("2_wfb4o")
 scale = 1.0
+hitbox_radius = 10.0
 max_hp = 60
 armor = 0
 knockback_resistance = 0.2

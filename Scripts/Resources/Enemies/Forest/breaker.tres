@@ -9,6 +9,7 @@ id = "enemy_013"
 name = "Breaker"
 texture = ExtResource("2_fvui4")
 scale = 1.0
+hitbox_radius = 40.0
 max_hp = 22000
 armor = 3
 knockback_resistance = 0.85

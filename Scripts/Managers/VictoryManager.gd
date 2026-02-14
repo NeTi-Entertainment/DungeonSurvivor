@@ -208,7 +208,7 @@ func _get_random_spawn_position() -> Vector2:
 func _get_reaper_stats() -> EnemyStats:
 	"""Retourne les stats du Reaper (depuis MapConfig ou création dynamique)"""
 	# Option 1 : Charger depuis MapConfig (si tu as créé un champ reaper_stats)
-	if map_config.has("reaper_stats") and map_config.reaper_stats:
+	if "reaper_stats" in map_config and map_config.reaper_stats:
 		return map_config.reaper_stats
 	
 	# Option 2 : Création dynamique (stats hardcodées pour l'instant)

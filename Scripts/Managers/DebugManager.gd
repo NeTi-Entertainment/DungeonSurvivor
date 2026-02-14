@@ -58,7 +58,7 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		match event.keycode:
 			KEY_F1:
-				_jump_to_time(1050)  # 17:30 (30s avant boss final)
+				_jump_to_time(1045)  # 17:30 (30s avant boss final)
 			KEY_F2:
 				_jump_to_time(1230)  # 19:30 (après boss, avant reapers)
 			KEY_F3:

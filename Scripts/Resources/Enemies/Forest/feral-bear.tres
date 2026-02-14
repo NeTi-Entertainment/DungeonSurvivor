@@ -9,6 +9,7 @@ id = "enemy_011"
 name = "Feral Bear"
 texture = ExtResource("2_cpved")
 scale = 1.0
+hitbox_radius = 40.0
 max_hp = 4000
 armor = 2
 knockback_resistance = 0.75

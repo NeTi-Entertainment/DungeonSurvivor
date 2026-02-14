@@ -6,7 +6,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j5yw3"]
 
 [node name="Enemy" type="CharacterBody2D"]
-collision_layer = 2
+collision_layer = 6
+collision_mask = 5
 script = ExtResource("1_wovta")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

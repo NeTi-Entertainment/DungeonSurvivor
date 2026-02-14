@@ -7,6 +7,7 @@ class_name EnemyStats
 @export var name: String = "Nom Affiché"
 @export var texture: Texture2D # Le sprite de l'ennemi
 @export var scale: float = 1.0 # Pour faire des gros ou des petits ennemis avec le même sprite
+@export var hitbox_radius: float = 15.0
 
 # --- STATS DE SURVIE ---
 @export_group("Statistiques de Survie")

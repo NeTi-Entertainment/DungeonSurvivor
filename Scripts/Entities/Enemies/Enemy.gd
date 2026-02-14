@@ -23,6 +23,11 @@ func _ready() -> void:
 	var players = get_tree().get_nodes_in_group("player")
 	if players.size() > 0:
 		player_ref = players[0]
+	if stats:
+		var collider = $CollisionShape2D
+		var new_shape = CircleShape2D.new()
+		new_shape.radius = stats.hitbox_radius
+		collider.shape = new_shape
 
 func setup(stats_data: EnemyStats) -> void:
 	if not stats_data:
@@ -52,7 +57,11 @@ func _physics_process(delta: float) -> void:
 		
 	velocity = (direction * stats.speed) + knockback_velocity
 	move_and_slide()
-		
+	if velocity.x > 0:
+		sprite_2d.flip_h = true  # On inverse pour regarder à DROITE
+	elif velocity.x < 0:
+		sprite_2d.flip_h = false # On remet normal pour regarder à GAUCHE
+	
 	knockback_velocity = knockback_velocity.lerp(Vector2.ZERO, knockback_decay * delta)
 	
 	for i in get_slide_collision_count():

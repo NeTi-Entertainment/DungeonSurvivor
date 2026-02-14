@@ -9,6 +9,7 @@ id = "enemy_012"
 name = "Jarre"
 texture = ExtResource("2_gi1qi")
 scale = 1.0
+hitbox_radius = 40.0
 max_hp = 15000
 armor = 2
 knockback_resistance = 0.8

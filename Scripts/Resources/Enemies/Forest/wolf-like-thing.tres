@@ -9,6 +9,7 @@ id = "enemy_01"
 name = "Wolf-like-thing"
 texture = ExtResource("2_6618h")
 scale = 1.0
+hitbox_radius = 10.0
 max_hp = 15
 armor = 0
 knockback_resistance = 0.0

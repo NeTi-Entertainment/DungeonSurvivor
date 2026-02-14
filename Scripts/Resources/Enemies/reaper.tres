@@ -9,6 +9,7 @@ id = "enemy_00"
 name = "Reaper"
 texture = ExtResource("2_qo60b")
 scale = 1.0
+hitbox_radius = 10.0
 max_hp = 100000
 armor = 5
 knockback_resistance = 0.0
