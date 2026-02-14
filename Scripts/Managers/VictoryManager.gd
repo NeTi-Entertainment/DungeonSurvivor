@@ -113,10 +113,11 @@ func _on_reaper_time() -> void:
 
 func _show_victory_title() -> void:
 	"""Affiche le titre VICTORY en haut de l'écran"""
-	if victory_ui:
-		victory_ui.show()
-	else:
-		push_warning("[VictoryManager] Pas de victory_ui assigné")
+	#if victory_ui:
+	#	victory_ui.show()
+	#else:
+	#	push_warning("[VictoryManager] Pas de victory_ui assigné")
+	pass
 
 # ============================================================================
 # PORTAIL

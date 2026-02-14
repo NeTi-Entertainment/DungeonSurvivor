@@ -21,6 +21,7 @@ var current_options = []
 @onready var game_over_ui: Control = $CanvasLayer/GameOverUI
 @onready var victory_ui: Control = $CanvasLayer/VictoryUI
 @onready var button_return: Button = $CanvasLayer/GameOverUI/ButtonReturn
+@onready var button_victory_return: Button = $CanvasLayer/VictoryUI/ButtonReturn
 
 # UI LEVEL UP
 @onready var level_up_ui: Control = $CanvasLayer/LevelUpUI
@@ -47,6 +48,7 @@ func _ready() -> void:
 	
 	# Connect the Button
 	button_return.pressed.connect(_on_return_pressed)
+	button_victory_return.pressed.connect(_on_return_pressed)
 	
 	# Connexions Joueur
 	player.player_died.connect(_on_player_died)
@@ -117,17 +119,10 @@ func _on_final_boss_defeated() -> void:
 	victory_manager.on_final_boss_defeated(boss_position)
 
 func _initialize_victory_manager() -> void:
-	"""Initialise le VictoryManager"""
-	var victory_ui = $CanvasLayer/VictoryUI  # Référence à l'UI que tu viens de créer
-	
 	victory_manager = VictoryManager.new()
 	victory_manager.setup(player, current_map_config, self, victory_ui)
 	add_child(victory_manager)
-	
-	# Connexion au signal portal_used
 	victory_manager.portal_used.connect(_on_portal_used)
-	
-	print("[Game] VictoryManager initialisé")
 
 func _on_portal_used() -> void:
 	victory_ui.show()
@@ -140,7 +135,7 @@ func _setup_game_timer_connections() -> void:
 	GameTimer.cycle_changed.connect(_on_cycle_changed)
 	GameTimer.game_time_over.connect(_on_game_time_over)
 
-func _on_time_updated(seconds_remaining: int, formatted_time: String) -> void:
+func _on_time_updated(_seconds_remaining: int, _formatted_time: String) -> void:
 	"""Mise à jour de l'UI du timer (Phase 5)"""
 	# TODO : Mettre à jour ton Label de timer dans l'UI
 	# timer_label.text = formatted_time
@@ -190,11 +185,16 @@ func _on_victory() -> void:
 	get_tree().paused = true
 
 func _on_return_pressed() -> void:
-	# 1. Unpause the game (very important before changing scenes!)
+	print("[Game] _on_return_pressed() APPELÉ")
 	get_tree().paused = false
+	print("[Game] Jeu dépausé")
+	
 	GameTimer.stop_game()
-	# 2. Go back to Main Menu
-	get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
+	print("[Game] GameTimer stoppé")
+	
+	print("[Game] Changement de scène vers MainMenu...")
+	get_tree().call_deferred("change_scene_to_file", "res://Scenes/UI/MainMenu.tscn")
+	print("[Game] Changement de scène demandé")
 
 # --- LEVEL UP SYSTEM ---
 func _on_level_up(_new_level: int) -> void:
