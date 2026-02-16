@@ -30,6 +30,8 @@ var current_targets = [] # Liste des ennemis touchés à cette frame
 @onready var line_2d = $OrbitPivot/Muzzle/Line2D
 @onready var damage_timer = $DamageTimer
 
+@export var icon: Texture2D
+
 func _ready():
 	damage_timer.timeout.connect(_on_tick)
 	

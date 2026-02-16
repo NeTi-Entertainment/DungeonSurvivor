@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bvi8fj2obau4f"]
+[gd_scene load_steps=3 format=3 uid="uid://bvi8fj2obau4f"]
 
 [ext_resource type="Script" uid="uid://dv3sqaiew20fx" path="res://Scripts/Weapons/Base/WeaponSanguineNanobots.gd" id="1_2ccc0"]
+[ext_resource type="Texture2D" uid="uid://bn746ypcco65u" path="res://Assets/Icon/SanguineNanobotsIcon.png" id="2_a8tw7"]
 
 [node name="WeaponSanguineNanobots" type="Node2D"]
 script = ExtResource("1_2ccc0")
+icon = ExtResource("2_a8tw7")
 
 [node name="CooldownTimer" type="Timer" parent="."]
 one_shot = true

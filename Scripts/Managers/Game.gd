@@ -1,8 +1,5 @@
 extends Node2D
 
-# On charge la scène de l'ennemi pour pouvoir la cloner
-var enemy_scene = preload("res://Scenes/Entities/Enemies/Enemy.tscn")
-
 var wave_manager: WaveManager
 var boss_manager: BossManager
 var victory_manager: VictoryManager
@@ -22,9 +19,12 @@ var current_options = []
 @onready var victory_ui: Control = $CanvasLayer/VictoryUI
 @onready var button_return: Button = $CanvasLayer/GameOverUI/ButtonReturn
 @onready var button_victory_return: Button = $CanvasLayer/VictoryUI/ButtonReturn
+@onready var timer_label: Label = $CanvasLayer/TimerLabel
 
 # UI LEVEL UP
 @onready var level_up_ui: Control = $CanvasLayer/LevelUpUI
+
+@onready var inventory_hud: InventoryHUD = $CanvasLayer/InventoryHUD
 # On récupère les boutons (solution temporaire avant de les générer dynamiquement)
 @onready var option_1: Button = $CanvasLayer/LevelUpUI/OptionsContainer/Option1
 @onready var option_2: Button = $CanvasLayer/LevelUpUI/OptionsContainer/Option2
@@ -35,6 +35,8 @@ var current_options = []
 @onready var btn_banish: Button = $CanvasLayer/LevelUpUI/QoLButtonsContainer/ButtonBanish
 var is_banish_active: bool = false
 
+var damage_number_manager: DamageNumberManager
+
 func _ready() -> void:
 	#timer.timeout.connect()
 	
@@ -43,6 +45,9 @@ func _ready() -> void:
 	_initialize_wave_manager()
 	_initialize_boss_manager()
 	_initialize_victory_manager()
+	
+	damage_number_manager = DamageNumberManager.new()
+	add_child(damage_number_manager)
 	
 	_initialize_debug_manager()
 	
@@ -78,6 +83,16 @@ func _ready() -> void:
 			map_border.setup(current_map_config.map_radius, Color.BLACK)
 			# Assure-toi que le MapBorder est au-dessus du sol (Z=0) et des ennemis (Z=1)
 			map_border.z_index = 5
+	if player:
+		# Connexion du signal
+		player.inventory_updated.connect(_on_player_inventory_updated)
+		
+		# Force une première mise à jour immédiate
+		inventory_hud.update_inventory(player.weapons, player.accessories)
+
+func _on_player_inventory_updated(weapons: Array, accessories: Array) -> void:
+	if inventory_hud:
+		inventory_hud.update_inventory(weapons, accessories)
 
 func _initialize_debug_manager() -> void:
 	"""Initialise le DebugManager pour les tests"""
@@ -136,10 +151,7 @@ func _setup_game_timer_connections() -> void:
 	GameTimer.game_time_over.connect(_on_game_time_over)
 
 func _on_time_updated(_seconds_remaining: int, _formatted_time: String) -> void:
-	"""Mise à jour de l'UI du timer (Phase 5)"""
-	# TODO : Mettre à jour ton Label de timer dans l'UI
-	# timer_label.text = formatted_time
-	pass
+	timer_label.text = _formatted_time
 
 func _on_cycle_changed(cycle_number: int) -> void:
 	"""Changement de cycle d'ennemis (Phase 2)"""
@@ -347,18 +359,26 @@ func _apply_option(option: Dictionary) -> void:
 		if new_weapon_scene:
 			var new_weapon = new_weapon_scene.instantiate()
 			player.get_node("WeaponsHolder").add_child(new_weapon)
+			player.weapons.append(new_weapon)
 			# Initialiser stats niveau 1
 			new_weapon.load_stats(1) 
 		
 	elif option.type == "accessory_new" or option.type == "accessory_upgrade":
 		GameData.add_accessory(option.id)
 		
+		player.accessories.clear()
+		for acc_id in GameData.current_accessories.keys():
+			if acc_id in GameData.accessory_data:
+				var data = GameData.accessory_data[acc_id]
+				player.accessories.append(data)
+			
 		# Force all existing weapons to recalculate stats to apply the passive bonus immediately
 		var holder = player.get_node("WeaponsHolder")
 		for w in holder.get_children():
 			# Reload stats at current level to apply new modifiers
 			if w.has_method("load_stats"):
 				w.load_stats(w.level)
+		player.update_stats()
 		# LOG APRES ACCESSOIRES
 		_log_all_weapon_stats()
 
@@ -491,6 +511,8 @@ func _handle_option_click(index: int):
 	else:
 		# MODE NORMAL (Choisir l'amélioration)
 		_apply_option(selected_option)
+		if inventory_hud:
+			inventory_hud.update_inventory(player.weapons, player.accessories)
 		_resume_game()
 
 # Remplacer les appels directs dans tes fonctions existantes :

@@ -33,6 +33,8 @@ var open_angle_bottom = 45.0 # Mâchoire du bas descend (positif = sens horaire)
 @onready var cooldown_timer = $CooldownTimer
 @onready var player = get_parent().get_parent()
 
+@export var icon: Texture2D
+
 func _ready():
 	jaws_container.visible = false
 	attack_hitbox.monitoring = false

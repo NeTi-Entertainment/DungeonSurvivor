@@ -21,6 +21,8 @@ var projectile_speed: float = 1.0
 @onready var cooldown_timer = $CooldownTimer
 @onready var rod_swing = $FishingRodSwing
 
+@export var icon: Texture2D
+
 func _ready():
 	cooldown_timer.timeout.connect(_try_attack)
 	# On connecte le signal de fin du FishingRodSwing

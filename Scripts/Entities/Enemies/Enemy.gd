@@ -74,6 +74,8 @@ func _physics_process(delta: float) -> void:
 func take_damage(damage_amount: int, knockback_force: float = 0.0, knockback_dir: Vector2 = Vector2.ZERO) -> void:
 	if is_dying: return
 	
+	GameData.damage_taken.emit(damage_amount, global_position, false)
+	
 	# Debug : One-shot mode
 	if GameData.debug_one_shot_mode:
 		damage_amount = 999999
@@ -100,8 +102,25 @@ func die() -> void:
 	
 	if xp_gem_scene and stats:
 		var xp = xp_gem_scene.instantiate()
+		var elapsed_min = GameTimer.get_elapsed_time() / 60.0
+		var value = 1
+		var roll = randf()
+
+		if elapsed_min < 5.0:
+			value = 1 # 100% Bleu
+		elif elapsed_min < 10.0:
+			if roll < 0.3: value = 5 # 30% Vert
+			else: value = 1
+		elif elapsed_min < 15.0:
+			if roll < 0.2: value = 10 # 20% Rouge
+			elif roll < 0.6: value = 5 # 40% Vert
+			else: value = 1
+		else:
+			if roll < 0.1: value = 25 # 10% Violet
+			elif roll < 0.5: value = 10 # 40% Rouge
+			else: value = 5 # 50% Vert
 		if xp.has_method("setup"): 
-			xp.setup(stats.xp_value)
+			xp.setup(value)
 		_spawn_loot(xp)
 	
 	var coin_drop_chance = 0.5

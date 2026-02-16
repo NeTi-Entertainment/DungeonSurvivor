@@ -241,7 +241,7 @@ var current_accessories = {}
 var accessory_data = {
 	"frequency_coil": {
 		"name": "Bobine de fréquence",
-		"icon": "res://Assets/Accessories/FrequencyCoil.png", # À créer plus tard
+		"icon": preload("res://Assets/Icon/FrequencyCoilIcon.png"),
 		"description": "Intervalle de ticks -10%/niv",
 		"type": "stat_modifier",
 		"stat_target": "tick_interval",
@@ -251,6 +251,7 @@ var accessory_data = {
 	},
 	"wave_diffuser": {
 		"name": "Diffuseur d'ondes",
+		"icon": preload("res://Assets/Icon/WaveDiffuserIcon.png"),
 		"description": "Zone d'effet +10%/niv",
 		"type": "stat_modifier",
 		"stat_target": "area",
@@ -260,6 +261,7 @@ var accessory_data = {
 	},
 	"whetstone": {
 		"name": "Pierre à aiguiser",
+		"icon": preload("res://Assets/Icon/WhetstoneIcon.png"),
 		"description": "Vitesse d'attaque +5%/niv (Réduit Cooldown)",
 		"type": "stat_modifier",
 		"stat_target": "cooldown",
@@ -269,6 +271,7 @@ var accessory_data = {
 	},
 	"judgment_lens": {
 		"name": "Lentille du jugement",
+		"icon": preload("res://Assets/Icon/JudgmentLensIcon.png"),
 		"description": "Chance critique +1%/niv",
 		"type": "stat_modifier",
 		"stat_target": "crit_chance",
@@ -278,6 +281,7 @@ var accessory_data = {
 	},
 	"corrupt_ichor": {
 		"name": "Ichor corrompu",
+		"icon": preload("res://Assets/Icon/CorruptedIchorIcon.png"),
 		"description": "Vol de vie +0.2%/niv",
 		"type": "stat_modifier",
 		"stat_target": "lifesteal",
@@ -287,6 +291,7 @@ var accessory_data = {
 	},
 	"war_paint": {
 		"name": "Peinture de guerre",
+		"icon": preload("res://Assets/Icon/WarPaintIcon.png"),
 		"description": "Dégâts +5%/niv",
 		"type": "stat_modifier",
 		"stat_target": "damage",
@@ -296,6 +301,7 @@ var accessory_data = {
 	},
 	"acceleration_feather": {
 		"name": "Plume d'accélération",
+		"icon": preload("res://Assets/Icon/AccelerationFeatherIcon.png"),
 		"description": "Vitesse projectiles +10%/niv",
 		"type": "stat_modifier",
 		"stat_target": "projectile_speed",
@@ -305,6 +311,7 @@ var accessory_data = {
 	},
 	"torment_hourglass": {
 		"name": "Sablier de tourments",
+		"icon": preload("res://Assets/Icon/TormentHourglassIcon.png"),
 		"description": "Durée des effets +10%/niv",
 		"type": "stat_modifier",
 		"stat_target": "duration",
@@ -314,6 +321,7 @@ var accessory_data = {
 	},
 	"propagation_roots": {
 		"name": "Racines de propagation",
+		"icon": preload("res://Assets/Icon/PropagationRootsIcon.png"),
 		"description": "Nombre de projectiles +0.3/niv",
 		"type": "stat_modifier",
 		"stat_target": "amount",
@@ -323,10 +331,101 @@ var accessory_data = {
 	},
 	"tides_amulet": {
 		"name": "Amulette des marées",
+		"icon": preload("res://Assets/Icon/Tide'sCharmIcon.png"),
 		"description": "Knockback +5%/niv",
 		"type": "stat_modifier",
 		"stat_target": "knockback",
 		"value": 0.05,
+		"method": "multiply_additive",
+		"max_level": 10
+	},
+	"advanced_stitches_pack": {
+		"name": "Kit de Suture Avancee",
+		"icon": preload("res://Assets/Icon/AdvancedStitchesPackIcon.png"),
+		"description": "Natural regeneration +0.25/niv",
+		"type": "stat_modifier",
+		"stat_target": "recovery",
+		"value": 0.25,
+		"method": "add",
+		"max_level": 10
+	},
+	"titan_heart": {
+		"name": "Coeur de Titan",
+		"icon": preload("res://Assets/Icon/Titan'sHeartIcon.png"),
+		"description": "Max health +8%/niv",
+		"type": "stat_modifier",
+		"stat_target": "health",
+		"value": 0.08,
+		"method": "multiply_additive",
+		"max_level": 10
+	},
+	"bait": {
+		"name": "Appat",
+		"icon": preload("res://Assets/Icon/BaitIcon.png"),
+		"description": "Luck +5%/niv",
+		"type": "stat_modifier",
+		"stat_target": "luck",
+		"value": 0.05,
+		"method": "multiply_additive",
+		"max_level": 10
+	},
+	"chains_of_the_freed": {
+		"name": "Chaines du Libere",
+		"icon": preload("res://Assets/Icon/ChainsOfTheFreedIcon.png"),
+		"description": "Armor Pierce +0.2/niv",
+		"type": "stat_modifier",
+		"stat_target": "armor_pierce",
+		"value": 0.2,
+		"method": "additive",
+		"max_level": 10
+	},
+	"quatuor_needle_dial": {
+		"name": "Cadran Quatuor-Aiguille",
+		"icon": preload("res://Assets/Icon/DialNeedleQuartetIcon.png"),
+		"description": "Experience +10%/niv",
+		"type": "stat_modifier",
+		"stat_target": "experience",
+		"value": 0.1,
+		"method": "multiply_additive",
+		"max_level": 10
+	},
+	"soul_collector": {
+		"name": "Collecteur d'Ames",
+		"icon": preload("res://Assets/Icon/SoulCollectorIcon.png"),
+		"description": "Attraction Range +10/niv",
+		"type": "stat_modifier",
+		"stat_target": "pickup_range",
+		"value": 10,
+		"method": "add",
+		"max_level": 10
+	},
+	"war_banner": {
+		"name": "Banniere de Combat",
+		"icon": preload("res://Assets/Icon/WarBannerIcon.png"),
+		"description": "Enemy amount +10%/niv",
+		"type": "stat_modifier",
+		"stat_target": "enemy_amount",
+		"value": 0.1,
+		"method": "multiply_additive",
+		"max_level": 10
+	},
+	"inferlink": {
+		"name": "Inferlien",
+		"icon": preload("res://Assets/Icon/InferlinkIcon.png"),
+		"description": "Armor +0.5/niv",
+		"type": "stat_modifier",
+		"stat_target": "armor",
+		"value": 0.5,
+		"method": "add",
+		"max_level": 10
+	},
+	"jawed_chest": {
+		"name": "Coffret Dentele",
+		"icon": preload("res://Assets/Icon/JawedChestIcon.png"),
+		"description": "Gold +10%/niv",
+		"type": "stat_modifier",
+		"stat_target": "gold",
+		"value": 0.1,
 		"method": "multiply_additive",
 		"max_level": 10
 	}
@@ -755,7 +854,7 @@ func get_stat_with_bonuses(base_value: float, stat_name: String) -> float:
 			final_value /= (1.0 + total_bonus)
 			
 		# Cas Spécial : Stats "Plates" (Additionnelles)
-		elif stat_name in ["armor", "amount", "revival", "reroll", "banish", "skip"]:
+		elif stat_name in ["armor", "amount", "revival", "reroll", "banish", "skip", "recovery", "pickup_range"]:
 			final_value += (level * bonus_per_lvl)
 			
 		# Cas Général : Multiplicateurs (Dégâts, Santé, Vitesse, Taille)

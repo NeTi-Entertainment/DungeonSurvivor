@@ -58,7 +58,8 @@ func _apply_buff_effect():
 		"buff_potion":
 			# Rend 30 PV (ou 20% max hp)
 			if target.has_method("heal"):
-				target.max_health * 0.20
+				var heal_amount = int(target.max_health * 0.20)
+				target.heal(heal_amount)
 				
 		"buff_magnet":
 			# Attire TOUS les items (XP, Or, Sacs)

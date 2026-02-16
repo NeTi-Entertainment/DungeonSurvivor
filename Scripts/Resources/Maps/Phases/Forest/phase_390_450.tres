@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="SpawnPhase" load_steps=5 format=3 uid="uid://cavuva0bhdav3"]
+
+[ext_resource type="Script" uid="uid://bor4ldwcau754" path="res://Scripts/Resources/WeightedEnemy.gd" id="1_8r310"]
+[ext_resource type="Script" uid="uid://deowqu3awhjua" path="res://Scripts/Resources/SpawnPhase.gd" id="2_ij3by"]
+[ext_resource type="Resource" uid="uid://ddw74mcs6535y" path="res://Scripts/Resources/Enemies/Forest/squaddy.tres" id="2_o3f2r"]
+
+[sub_resource type="Resource" id="Resource_y66rt"]
+script = ExtResource("1_8r310")
+enemy_stats = ExtResource("2_o3f2r")
+weight = 1
+metadata/_custom_type_script = "uid://bor4ldwcau754"
+
+[resource]
+script = ExtResource("2_ij3by")
+start_time = 390
+end_time = 450
+spawn_interval = 1.0
+enemies = Array[ExtResource("1_8r310")]([SubResource("Resource_y66rt")])
+pack_enabled = false
+pack_interval = 10.0
+pack_min_size = 3
+pack_max_size = 5
+pack_radius = 100.0
+circle_enabled = false
+circle_interval = 20.0
+circle_enemy_count = 12
+circle_radius = 500.0
+line_enabled = false
+line_interval = 30.0
+enemies_per_line = 10
+metadata/_custom_type_script = "uid://deowqu3awhjua"

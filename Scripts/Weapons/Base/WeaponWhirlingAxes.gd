@@ -22,6 +22,8 @@ var crit_damage: float = 1.4
 @onready var rotator = $Rotator
 @onready var cooldown_timer = $CooldownTimer
 
+@export var icon: Texture2D
+
 # Stockage des haches créées
 var active_axes = []
 

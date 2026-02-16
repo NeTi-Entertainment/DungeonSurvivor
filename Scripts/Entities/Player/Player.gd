@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 signal player_died
 signal level_up_triggered(level)
+signal inventory_updated(weapons: Array, accessories: Array)
 #signal experience_changed(current, required) # Pour mettre à jour l'UI
 
 @export var movement_speed: float = 300.0
@@ -34,6 +35,9 @@ var banish_count: int = 0
 
 var is_god_mode: bool = false
 var speed_buff_multiplier: float = 1.0
+
+var accessories: Array = []
+var weapons: Array = []
 
 # Limites d'inventaire
 const MAX_WEAPON_SLOTS = 5
@@ -134,6 +138,23 @@ func _ready() -> void:
 		GameData.run_stats_updated.connect(update_stats)
 	
 	update_stats()
+	
+	for child in get_children():
+		# On vérifie si c'est une arme (si elle a un script avec 'id' ou 'load_stats')
+		if child.get("id") != null and child.has_method("load_stats"):
+			if not weapons.has(child):
+				weapons.append(child)
+	
+	# Même chose si tu utilises un WeaponsHolder (décommente si besoin)
+	if has_node("WeaponsHolder"):
+		for child in $WeaponsHolder.get_children():
+			if child.get("id") != null and not weapons.has(child):
+				weapons.append(child)
+	
+	call_deferred("emit_inventory_update")
+
+func emit_inventory_update() -> void:
+	inventory_updated.emit(weapons, accessories)
 
 func _physics_process(delta: float) -> void:
 	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -248,10 +269,15 @@ func update_stats():
 func take_damage(amount: int) -> void:
 	if is_god_mode: return
 	
+	# Maintenant, on s'assure que les degats finaux sont un
+	# entier mais on permet a l'armure de 0.5 de compter.
+	var damage_reduction = armor
+	var final_damage = max(1, amount - int(damage_reduction))
+	
 	if not invincibility_timer.is_stopped():
 		return
 	
-	current_health -= amount
+	current_health -= final_damage
 	health_bar.value = current_health
 	invincibility_timer.start()
 	
@@ -318,3 +344,19 @@ func activate_speed_buff(duration: float):
 	# Retour à la normale
 	var tween_back = create_tween()
 	tween_back.tween_property(sprite, "modulate", Color.WHITE, 0.5)
+
+func add_weapon(weapon_scene: PackedScene) -> void:
+	# ... (ton code existant d'instanciation) ...
+	var new_weapon = weapon_scene.instantiate()
+	if has_node("WeaponsHolder"):
+		$WeaponsHolder.add_child(new_weapon)
+	else:
+		add_child(new_weapon)
+	weapons.append(new_weapon)
+	inventory_updated.emit(weapons, accessories)
+
+# Fonction future pour ajouter un accessoire
+func add_accessory(accessory_data: Resource) -> void:
+	accessories.append(accessory_data)
+	
+	inventory_updated.emit(weapons, accessories)

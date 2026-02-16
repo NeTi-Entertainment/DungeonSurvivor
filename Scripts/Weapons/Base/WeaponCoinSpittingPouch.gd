@@ -7,6 +7,8 @@ var is_ready = true
 
 var projectile_scene = preload("res://Scenes/Weapons/Projectiles/CoinProjectile.tscn")
 
+@export var icon: Texture2D
+
 #Useful accessories stats: projectile_speed, amount, crit_chance, cooldown, damage
 
 # --- BLOC STATS CALCULÉES ---

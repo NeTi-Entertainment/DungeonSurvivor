@@ -1,0 +1,52 @@
+[gd_resource type="Resource" script_class="SpawnPhase" load_steps=11 format=3 uid="uid://djhb1j34tdbcc"]
+
+[ext_resource type="Script" uid="uid://bor4ldwcau754" path="res://Scripts/Resources/WeightedEnemy.gd" id="1_owuf8"]
+[ext_resource type="Resource" uid="uid://bfrxxg1uhq8s2" path="res://Scripts/Resources/Enemies/Forest/ape-like-thing.tres" id="2_28p41"]
+[ext_resource type="Script" uid="uid://deowqu3awhjua" path="res://Scripts/Resources/SpawnPhase.gd" id="2_ur8ws"]
+[ext_resource type="Resource" uid="uid://buams6hwrsqox" path="res://Scripts/Resources/Enemies/Forest/boar-like-thing.tres" id="3_c8swy"]
+[ext_resource type="Resource" uid="uid://spq8qp3ltwmd" path="res://Scripts/Resources/Enemies/Forest/wolf-like-thing.tres" id="4_o02iu"]
+[ext_resource type="Resource" uid="uid://ddw74mcs6535y" path="res://Scripts/Resources/Enemies/Forest/squaddy.tres" id="5_hkwvn"]
+
+[sub_resource type="Resource" id="Resource_x1g8t"]
+script = ExtResource("1_owuf8")
+enemy_stats = ExtResource("2_28p41")
+weight = 30
+metadata/_custom_type_script = "uid://bor4ldwcau754"
+
+[sub_resource type="Resource" id="Resource_0vs6q"]
+script = ExtResource("1_owuf8")
+enemy_stats = ExtResource("3_c8swy")
+weight = 30
+metadata/_custom_type_script = "uid://bor4ldwcau754"
+
+[sub_resource type="Resource" id="Resource_s7gsk"]
+script = ExtResource("1_owuf8")
+enemy_stats = ExtResource("4_o02iu")
+weight = 39
+metadata/_custom_type_script = "uid://bor4ldwcau754"
+
+[sub_resource type="Resource" id="Resource_u0rgs"]
+script = ExtResource("1_owuf8")
+enemy_stats = ExtResource("5_hkwvn")
+weight = 1
+metadata/_custom_type_script = "uid://bor4ldwcau754"
+
+[resource]
+script = ExtResource("2_ur8ws")
+start_time = 240
+end_time = 300
+spawn_interval = 1.0
+enemies = Array[ExtResource("1_owuf8")]([SubResource("Resource_x1g8t"), SubResource("Resource_0vs6q"), SubResource("Resource_s7gsk"), SubResource("Resource_u0rgs")])
+pack_enabled = false
+pack_interval = 10.0
+pack_min_size = 3
+pack_max_size = 5
+pack_radius = 100.0
+circle_enabled = false
+circle_interval = 20.0
+circle_enemy_count = 12
+circle_radius = 500.0
+line_enabled = false
+line_interval = 30.0
+enemies_per_line = 10
+metadata/_custom_type_script = "uid://deowqu3awhjua"

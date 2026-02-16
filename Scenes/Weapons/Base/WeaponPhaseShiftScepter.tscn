@@ -1,12 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://bkfr75q78kg7h"]
+[gd_scene load_steps=4 format=3 uid="uid://bkfr75q78kg7h"]
 
 [ext_resource type="Script" uid="uid://bp4kiegnw350h" path="res://Scripts/Weapons/Base/WeaponPhaseShiftScepter.gd" id="1_q53ua"]
+[ext_resource type="Texture2D" uid="uid://dddmyj4fk6ill" path="res://Assets/Icon/PhaseShiftScepterIcon.png" id="2_i0t0j"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sqs55"]
 radius = 600.0
 
 [node name="WeaponPhaseShiftScepter" type="Node2D"]
 script = ExtResource("1_q53ua")
+icon = ExtResource("2_i0t0j")
 
 [node name="DetectionZone" type="Area2D" parent="."]
 collision_layer = 0

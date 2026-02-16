@@ -14,5 +14,5 @@ max_hp = 15
 armor = 0
 knockback_resistance = 0.0
 damage = 7
-speed = 100.0
+speed = 300.0
 metadata/_custom_type_script = "uid://blvcdvkhmdghu"

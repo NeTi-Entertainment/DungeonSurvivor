@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="SpawnPhase" load_steps=9 format=3 uid="uid://idm7188goy1t"]
+
+[ext_resource type="Script" uid="uid://bor4ldwcau754" path="res://Scripts/Resources/WeightedEnemy.gd" id="1_swpnj"]
+[ext_resource type="Script" uid="uid://deowqu3awhjua" path="res://Scripts/Resources/SpawnPhase.gd" id="2_3qtec"]
+[ext_resource type="Resource" uid="uid://bfrxxg1uhq8s2" path="res://Scripts/Resources/Enemies/Forest/ape-like-thing.tres" id="2_wsbhp"]
+[ext_resource type="Resource" uid="uid://buams6hwrsqox" path="res://Scripts/Resources/Enemies/Forest/boar-like-thing.tres" id="3_xmdfx"]
+[ext_resource type="Resource" uid="uid://spq8qp3ltwmd" path="res://Scripts/Resources/Enemies/Forest/wolf-like-thing.tres" id="4_wggws"]
+
+[sub_resource type="Resource" id="Resource_xhk2b"]
+script = ExtResource("1_swpnj")
+enemy_stats = ExtResource("2_wsbhp")
+weight = 30
+metadata/_custom_type_script = "uid://bor4ldwcau754"
+
+[sub_resource type="Resource" id="Resource_8kq5v"]
+script = ExtResource("1_swpnj")
+enemy_stats = ExtResource("3_xmdfx")
+weight = 20
+metadata/_custom_type_script = "uid://bor4ldwcau754"
+
+[sub_resource type="Resource" id="Resource_85k3o"]
+script = ExtResource("1_swpnj")
+enemy_stats = ExtResource("4_wggws")
+weight = 50
+metadata/_custom_type_script = "uid://bor4ldwcau754"
+
+[resource]
+script = ExtResource("2_3qtec")
+start_time = 150
+end_time = 170
+spawn_interval = 1.0
+enemies = Array[ExtResource("1_swpnj")]([SubResource("Resource_xhk2b"), SubResource("Resource_8kq5v"), SubResource("Resource_85k3o")])
+pack_enabled = false
+pack_interval = 10.0
+pack_min_size = 3
+pack_max_size = 5
+pack_radius = 100.0
+circle_enabled = false
+circle_interval = 20.0
+circle_enemy_count = 12
+circle_radius = 500.0
+line_enabled = false
+line_interval = 30.0
+enemies_per_line = 10
+metadata/_custom_type_script = "uid://deowqu3awhjua"

@@ -8,6 +8,8 @@ var pentagram_scene = preload("res://Scenes/Weapons/Projectiles/InfernalPentagra
 
 @onready var cooldown_timer = $CooldownTimer
 
+@export var icon: Texture2D
+
 #Useful accessories stats : cooldown, area, tick_interval, duration
 
 # --- STATS CALCULÉES ---

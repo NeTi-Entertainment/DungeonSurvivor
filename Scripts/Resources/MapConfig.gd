@@ -32,6 +32,9 @@ class_name MapConfig
 @export_range(800, 2000, 50) var spawn_distance: float = 1200.0 # Distance de spawn autour du joueur
 @export_range(200, 1000, 50) var spawn_distance_variance: float = 200.0 # Variance pour éviter un cercle parfait
 
+@export_group("Phases de Spawn (Nouveau Système)")
+@export var spawn_phases: Array[SpawnPhase] = []
+
 # ============================================================================
 # BOSS CHECKPOINTS (Phase 3)
 # ============================================================================

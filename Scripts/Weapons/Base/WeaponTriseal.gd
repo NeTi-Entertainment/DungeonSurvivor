@@ -29,6 +29,8 @@ var beams = []
 @onready var rotating_container = $RotatingContainer
 @onready var tick_timer = $TickTimer
 
+@export var icon: Texture2D
+
 func _ready():
 	tick_timer.timeout.connect(_on_tick)
 	load_stats(1)

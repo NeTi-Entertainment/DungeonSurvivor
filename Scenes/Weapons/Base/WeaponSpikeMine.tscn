@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bhqfkpc0n13iv"]
+[gd_scene load_steps=3 format=3 uid="uid://bhqfkpc0n13iv"]
 
 [ext_resource type="Script" uid="uid://dj4r8byrnnkwo" path="res://Scripts/Weapons/Base/WeaponSpikeMine.gd" id="1_sbw2i"]
+[ext_resource type="Texture2D" uid="uid://c20rvwixdn1mj" path="res://Assets/Icon/SpikeMineIcon.png" id="2_jyp6m"]
 
 [node name="WeaponSpikeMine" type="Node2D"]
 script = ExtResource("1_sbw2i")
+icon = ExtResource("2_jyp6m")
 
 [node name="CooldownTimer" type="Timer" parent="."]
 one_shot = true

@@ -24,6 +24,8 @@ var crit_damage: float = 1.4
 @onready var cooldown_timer = $CooldownTimer
 @onready var detection_shape = $DetectionZone/CollisionShape2D
 
+@export var icon: Texture2D
+
 func _ready():
 	cooldown_timer.timeout.connect(func(): is_ready = true)
 	load_stats(1)

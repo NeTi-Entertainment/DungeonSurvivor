@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="SpawnPhase" load_steps=7 format=3 uid="uid://jemqpykttrl5"]
+
+[ext_resource type="Script" uid="uid://bor4ldwcau754" path="res://Scripts/Resources/WeightedEnemy.gd" id="1_5tihq"]
+[ext_resource type="Script" uid="uid://deowqu3awhjua" path="res://Scripts/Resources/SpawnPhase.gd" id="2_fvqkc"]
+[ext_resource type="Resource" uid="uid://b2yxyycncfwf3" path="res://Scripts/Resources/Enemies/Forest/apeserver.tres" id="2_nn77e"]
+[ext_resource type="Resource" uid="uid://cnl05sdc8ejkw" path="res://Scripts/Resources/Enemies/Forest/boarped.tres" id="3_2b8a2"]
+
+[sub_resource type="Resource" id="Resource_q0xjx"]
+script = ExtResource("1_5tihq")
+enemy_stats = ExtResource("2_nn77e")
+weight = 80
+metadata/_custom_type_script = "uid://bor4ldwcau754"
+
+[sub_resource type="Resource" id="Resource_gkcss"]
+script = ExtResource("1_5tihq")
+enemy_stats = ExtResource("3_2b8a2")
+weight = 20
+metadata/_custom_type_script = "uid://bor4ldwcau754"
+
+[resource]
+script = ExtResource("2_fvqkc")
+start_time = 830
+end_time = 890
+spawn_interval = 1.0
+enemies = Array[ExtResource("1_5tihq")]([SubResource("Resource_q0xjx"), SubResource("Resource_gkcss")])
+pack_enabled = false
+pack_interval = 10.0
+pack_min_size = 3
+pack_max_size = 5
+pack_radius = 100.0
+circle_enabled = false
+circle_interval = 20.0
+circle_enemy_count = 12
+circle_radius = 500.0
+line_enabled = false
+line_interval = 30.0
+enemies_per_line = 10
+metadata/_custom_type_script = "uid://deowqu3awhjua"

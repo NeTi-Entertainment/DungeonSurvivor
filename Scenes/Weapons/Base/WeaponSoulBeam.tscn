@@ -1,10 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://b1gx3hub4oabd"]
+[gd_scene load_steps=4 format=3 uid="uid://b1gx3hub4oabd"]
 
 [ext_resource type="Script" uid="uid://50e30k16qfox" path="res://Scripts/Weapons/Base/WeaponSoulBeam.gd" id="1_yvjyw"]
 [ext_resource type="Texture2D" uid="uid://ddryhsopwi5db" path="res://Assets/SoulBeam.png" id="2_jqtol"]
+[ext_resource type="Texture2D" uid="uid://doq5cw6e5rna" path="res://Assets/Icon/SoulBeamIcon.png" id="2_pa5qq"]
 
 [node name="WeaponSoulBeam" type="Node2D"]
 script = ExtResource("1_yvjyw")
+icon = ExtResource("2_pa5qq")
 
 [node name="OrbitPivot" type="Node2D" parent="."]
 

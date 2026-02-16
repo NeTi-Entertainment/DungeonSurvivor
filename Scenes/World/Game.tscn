@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dixutc7nivfpx"]
+[gd_scene load_steps=8 format=3 uid="uid://dixutc7nivfpx"]
 
 [ext_resource type="Script" uid="uid://cqmeoxf676vks" path="res://Scripts/Managers/Game.gd" id="1_j5yw3"]
 [ext_resource type="Texture2D" uid="uid://y37qmtpfafkh" path="res://Assets/GrassTile1.png" id="2_b2bpf"]
 [ext_resource type="Resource" uid="uid://crxb6o8iiink7" path="res://Scripts/Resources/Maps/Map_Forest.tres" id="2_x6kl1"]
 [ext_resource type="PackedScene" uid="uid://bggajvd2i6osp" path="res://Scenes/Entities/Player/Player.tscn" id="3_j5yw3"]
 [ext_resource type="Script" uid="uid://b882pw5sf0oxp" path="res://Scripts/UI/LootLogUI.gd" id="4_bvkne"]
+[ext_resource type="PackedScene" uid="uid://7cx5tjcb0hbu" path="res://Scenes/UI/InventoryHUD.tscn" id="5_7gveh"]
 [ext_resource type="Script" uid="uid://ccxd61bmnbwih" path="res://Scripts/Managers/MapBorder.gd" id="6_m3ec3"]
 
 [node name="Game" type="Node2D"]
@@ -25,6 +26,20 @@ stretch_mode = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 11
+
+[node name="InventoryHUD" parent="CanvasLayer" instance=ExtResource("5_7gveh")]
+
+[node name="TimerLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "20:00"
+horizontal_alignment = 1
 
 [node name="GameOverUI" type="Control" parent="CanvasLayer"]
 process_mode = 3

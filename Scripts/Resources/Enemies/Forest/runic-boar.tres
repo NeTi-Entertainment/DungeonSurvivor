@@ -9,6 +9,7 @@ id = "enemy_010"
 name = "Runic Boar"
 texture = ExtResource("2_3bfc3")
 scale = 1.0
+hitbox_radius = 15.0
 max_hp = 2500
 armor = 1
 knockback_resistance = 0.7

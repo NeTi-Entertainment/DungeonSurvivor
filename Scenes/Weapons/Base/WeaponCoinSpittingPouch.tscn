@@ -1,12 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://cs4fxq323524x"]
+[gd_scene load_steps=4 format=3 uid="uid://cs4fxq323524x"]
 
 [ext_resource type="Script" uid="uid://740jxqwsjjvo" path="res://Scripts/Weapons/Base/WeaponCoinSpittingPouch.gd" id="1_hu453"]
+[ext_resource type="Texture2D" uid="uid://bftu2v4ykx4cu" path="res://Assets/Icon/CoinSpittingPouch.png" id="2_thxkr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qpx5x"]
 radius = 400.0
 
 [node name="WeaponCoinSpittingPouch" type="Node2D"]
 script = ExtResource("1_hu453")
+icon = ExtResource("2_thxkr")
 
 [node name="DetectionZone" type="Area2D" parent="."]
 collision_layer = 0

@@ -9,6 +9,7 @@ id = "enemy_09"
 name = "Boarped"
 texture = ExtResource("2_2eng4")
 scale = 1.0
+hitbox_radius = 15.0
 max_hp = 2800
 armor = 3
 knockback_resistance = 0.8

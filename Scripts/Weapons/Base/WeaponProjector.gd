@@ -1,5 +1,7 @@
 extends Area2D
 
+@export var icon: Texture2D
+
 # Identifiant unique de l'arme (doit correspondre à GameData)
 var id = "projector"
 var level = 1

@@ -26,6 +26,8 @@ var last_look_right = true
 @onready var sprite = $Hitbox/Sprite2D
 @onready var collision_shape = $Hitbox/CollisionShape2D
 
+@export var icon: Texture2D
+
 func _ready():
 	#hitbox.visible = false
 	#hitbox.monitoring = false

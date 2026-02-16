@@ -1,12 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://cgifjxkh82ej4"]
+[gd_scene load_steps=5 format=3 uid="uid://cgifjxkh82ej4"]
 
 [ext_resource type="Script" uid="uid://bpnghjm5s514g" path="res://Scripts/Weapons/Base/WeaponCompressedAir.gd" id="1_uldbx"]
 [ext_resource type="Texture2D" uid="uid://dfhq07si1mwos" path="res://Assets/CompressedAir.png" id="2_gsgwi"]
+[ext_resource type="Texture2D" uid="uid://d3mjurcgyidny" path="res://Assets/Icon/CompressedAirIcon.png" id="2_s651o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x12o2"]
 
 [node name="WeaponCompressedAir" type="Node2D"]
 script = ExtResource("1_uldbx")
+icon = ExtResource("2_s651o")
 
 [node name="CooldownTimer" type="Timer" parent="."]
 one_shot = true

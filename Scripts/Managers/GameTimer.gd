@@ -172,6 +172,10 @@ func is_game_running() -> bool:
 func get_game_phase() -> GamePhase:
 	return current_phase
 
+func get_elapsed_time() -> int:
+	"""Retourne le temps écoulé depuis le début (en secondes)"""
+	return GAME_DURATION - time_remaining
+
 # ============================================================================
 # LOGIQUE INTERNE
 # ============================================================================

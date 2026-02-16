@@ -23,6 +23,8 @@ var pierce: int = 0
 @onready var detection_zone = $DetectionZone
 @onready var cooldown_timer = $CooldownTimer
 
+@export var icon: Texture2D
+
 func _ready():
 	cooldown_timer.timeout.connect(func(): is_ready = true)
 	load_stats(1)

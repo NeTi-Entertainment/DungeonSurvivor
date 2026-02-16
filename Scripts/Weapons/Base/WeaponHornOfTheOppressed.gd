@@ -21,6 +21,8 @@ var crit_damage: float = 1.4
 
 @onready var cooldown_timer = $CooldownTimer
 
+@export var icon: Texture2D
+
 func _ready():
 	cooldown_timer.timeout.connect(_on_cooldown_finished)
 	load_stats(1)

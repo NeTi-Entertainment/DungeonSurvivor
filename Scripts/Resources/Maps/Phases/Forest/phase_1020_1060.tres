@@ -1,0 +1,52 @@
+[gd_resource type="Resource" script_class="SpawnPhase" load_steps=11 format=3 uid="uid://bdduhle6yh5os"]
+
+[ext_resource type="Script" uid="uid://bor4ldwcau754" path="res://Scripts/Resources/WeightedEnemy.gd" id="1_vxonq"]
+[ext_resource type="Script" uid="uid://deowqu3awhjua" path="res://Scripts/Resources/SpawnPhase.gd" id="2_8kea1"]
+[ext_resource type="Resource" uid="uid://b2yxyycncfwf3" path="res://Scripts/Resources/Enemies/Forest/apeserver.tres" id="2_kdnvd"]
+[ext_resource type="Resource" uid="uid://wqkj5f6mem0s" path="res://Scripts/Resources/Enemies/Forest/wolfddy.tres" id="3_yyfum"]
+[ext_resource type="Resource" uid="uid://cnl05sdc8ejkw" path="res://Scripts/Resources/Enemies/Forest/boarped.tres" id="4_5rpw2"]
+[ext_resource type="Resource" uid="uid://coqmq2tls8py6" path="res://Scripts/Resources/Enemies/Forest/bear-like-thing.tres" id="5_hr2vh"]
+
+[sub_resource type="Resource" id="Resource_iur6p"]
+script = ExtResource("1_vxonq")
+enemy_stats = ExtResource("2_kdnvd")
+weight = 25
+metadata/_custom_type_script = "uid://bor4ldwcau754"
+
+[sub_resource type="Resource" id="Resource_h0x0t"]
+script = ExtResource("1_vxonq")
+enemy_stats = ExtResource("3_yyfum")
+weight = 15
+metadata/_custom_type_script = "uid://bor4ldwcau754"
+
+[sub_resource type="Resource" id="Resource_e4yg2"]
+script = ExtResource("1_vxonq")
+enemy_stats = ExtResource("4_5rpw2")
+weight = 40
+metadata/_custom_type_script = "uid://bor4ldwcau754"
+
+[sub_resource type="Resource" id="Resource_keerh"]
+script = ExtResource("1_vxonq")
+enemy_stats = ExtResource("5_hr2vh")
+weight = 20
+metadata/_custom_type_script = "uid://bor4ldwcau754"
+
+[resource]
+script = ExtResource("2_8kea1")
+start_time = 1020
+end_time = 1060
+spawn_interval = 1.0
+enemies = Array[ExtResource("1_vxonq")]([SubResource("Resource_iur6p"), SubResource("Resource_h0x0t"), SubResource("Resource_e4yg2"), SubResource("Resource_keerh")])
+pack_enabled = false
+pack_interval = 10.0
+pack_min_size = 3
+pack_max_size = 5
+pack_radius = 100.0
+circle_enabled = false
+circle_interval = 20.0
+circle_enemy_count = 12
+circle_radius = 500.0
+line_enabled = false
+line_interval = 30.0
+enemies_per_line = 10
+metadata/_custom_type_script = "uid://deowqu3awhjua"

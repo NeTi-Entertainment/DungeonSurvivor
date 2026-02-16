@@ -1,12 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://dhlshp8tbh0dv"]
+[gd_scene load_steps=4 format=3 uid="uid://dhlshp8tbh0dv"]
 
 [ext_resource type="Script" uid="uid://vsavq4vmqpwy" path="res://Scripts/Weapons/Base/WeaponFirstFlame.gd" id="1_sr6m0"]
+[ext_resource type="Texture2D" uid="uid://ek6ogdhroiii" path="res://Assets/Icon/FirstFlameIcon.png" id="2_m2dlk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sx04u"]
 radius = 300.0
 
 [node name="WeaponFirstFlame" type="Node2D"]
 script = ExtResource("1_sr6m0")
+icon = ExtResource("2_m2dlk")
 
 [node name="DetectionZone" type="Area2D" parent="."]
 collision_layer = 0

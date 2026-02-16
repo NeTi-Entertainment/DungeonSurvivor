@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://dyw5i6dp0cxmk"]
+[gd_scene load_steps=3 format=3 uid="uid://dyw5i6dp0cxmk"]
 
 [ext_resource type="Script" uid="uid://dlusuui6v1y4n" path="res://Scripts/Weapons/Base/WeaponWhirlingAxes.gd" id="1_7nq8p"]
+[ext_resource type="Texture2D" uid="uid://dapqkoochjn85" path="res://Assets/Icon/WhirlingAxeIcon.png" id="2_rjht0"]
 
 [node name="WeaponWhirlingAxes" type="Node2D"]
 script = ExtResource("1_7nq8p")
+icon = ExtResource("2_rjht0")
 
 [node name="Rotator" type="Node2D" parent="."]
 

@@ -27,6 +27,8 @@ var range_multiplier = 1.0 # Pour éloigner le coup du corps
 
 @onready var player = get_parent().get_parent()
 
+@export var icon: Texture2D
+
 func _ready():
 	_disable_hitbox()
 	

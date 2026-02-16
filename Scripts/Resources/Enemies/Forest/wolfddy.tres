@@ -9,6 +9,7 @@ id = "enemy_08"
 name = "Wolfddy"
 texture = ExtResource("2_5m50l")
 scale = 1.0
+hitbox_radius = 15.0
 max_hp = 20
 armor = 0
 knockback_resistance = 0.0

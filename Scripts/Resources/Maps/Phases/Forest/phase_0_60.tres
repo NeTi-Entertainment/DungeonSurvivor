@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="SpawnPhase" load_steps=5 format=3 uid="uid://us5ud0lnf7lt"]
+
+[ext_resource type="Script" uid="uid://deowqu3awhjua" path="res://Scripts/Resources/SpawnPhase.gd" id="1_830ic"]
+[ext_resource type="Script" uid="uid://bor4ldwcau754" path="res://Scripts/Resources/WeightedEnemy.gd" id="2_714qe"]
+[ext_resource type="Resource" uid="uid://bfrxxg1uhq8s2" path="res://Scripts/Resources/Enemies/Forest/ape-like-thing.tres" id="2_j6dow"]
+
+[sub_resource type="Resource" id="Resource_j6dow"]
+script = ExtResource("2_714qe")
+enemy_stats = ExtResource("2_j6dow")
+weight = 10
+metadata/_custom_type_script = "uid://bor4ldwcau754"
+
+[resource]
+script = ExtResource("1_830ic")
+start_time = 0
+end_time = 60
+spawn_interval = 1.0
+enemies = Array[ExtResource("2_714qe")]([SubResource("Resource_j6dow")])
+pack_enabled = true
+pack_interval = 5.0
+pack_min_size = 20
+pack_max_size = 30
+pack_radius = 100.0
+circle_enabled = true
+circle_interval = 10.0
+circle_enemy_count = 12
+circle_radius = 500.0
+line_enabled = true
+line_interval = 15.0
+enemies_per_line = 30
+metadata/_custom_type_script = "uid://deowqu3awhjua"

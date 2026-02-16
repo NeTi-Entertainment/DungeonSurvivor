@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bve055ijlv43t"]
+[gd_scene load_steps=3 format=3 uid="uid://bve055ijlv43t"]
 
 [ext_resource type="Script" uid="uid://bdal43qi5kr0t" path="res://Scripts/Weapons/Base/WeaponTriseal.gd" id="1_4lnhf"]
+[ext_resource type="Texture2D" uid="uid://di18fuyrp4hq7" path="res://Assets/Icon/TrisealIcon.png" id="2_gf7q2"]
 
 [node name="WeaponTriseal" type="Node2D"]
 script = ExtResource("1_4lnhf")
+icon = ExtResource("2_gf7q2")
 
 [node name="RotatingContainer" type="Node2D" parent="."]
 

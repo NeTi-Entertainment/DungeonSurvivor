@@ -32,6 +32,8 @@ var active_clouds = [] # Liste des instances
 @onready var cooldown_timer = $CooldownTimer
 @onready var duration_timer = $DurationTimer
 
+@export var icon: Texture2D
+
 func _ready():
 	cooldown_timer.timeout.connect(_on_cooldown_finished)
 	duration_timer.timeout.connect(_on_duration_finished)

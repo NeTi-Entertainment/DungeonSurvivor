@@ -9,6 +9,7 @@ id = "enemy_05"
 name = "Biped"
 texture = ExtResource("2_5eetm")
 scale = 1.0
+hitbox_radius = 15.0
 max_hp = 600
 armor = 1
 knockback_resistance = 0.6

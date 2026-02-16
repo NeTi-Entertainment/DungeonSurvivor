@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="SpawnPhase" load_steps=7 format=3 uid="uid://dgbnegismxr6l"]
+
+[ext_resource type="Script" uid="uid://bor4ldwcau754" path="res://Scripts/Resources/WeightedEnemy.gd" id="1_xb3h1"]
+[ext_resource type="Script" uid="uid://deowqu3awhjua" path="res://Scripts/Resources/SpawnPhase.gd" id="2_akia7"]
+[ext_resource type="Resource" uid="uid://ddw74mcs6535y" path="res://Scripts/Resources/Enemies/Forest/squaddy.tres" id="2_m3k4u"]
+[ext_resource type="Resource" uid="uid://d3m0jlavoytyv" path="res://Scripts/Resources/Enemies/Forest/biped.tres" id="3_iuobq"]
+
+[sub_resource type="Resource" id="Resource_amwcl"]
+script = ExtResource("1_xb3h1")
+enemy_stats = ExtResource("2_m3k4u")
+weight = 80
+metadata/_custom_type_script = "uid://bor4ldwcau754"
+
+[sub_resource type="Resource" id="Resource_tscbl"]
+script = ExtResource("1_xb3h1")
+enemy_stats = ExtResource("3_iuobq")
+weight = 20
+metadata/_custom_type_script = "uid://bor4ldwcau754"
+
+[resource]
+script = ExtResource("2_akia7")
+start_time = 490
+end_time = 530
+spawn_interval = 1.0
+enemies = Array[ExtResource("1_xb3h1")]([SubResource("Resource_amwcl"), SubResource("Resource_tscbl")])
+pack_enabled = false
+pack_interval = 10.0
+pack_min_size = 3
+pack_max_size = 5
+pack_radius = 100.0
+circle_enabled = false
+circle_interval = 20.0
+circle_enemy_count = 12
+circle_radius = 500.0
+line_enabled = false
+line_interval = 30.0
+enemies_per_line = 10
+metadata/_custom_type_script = "uid://deowqu3awhjua"
