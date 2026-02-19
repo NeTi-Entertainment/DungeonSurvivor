@@ -113,10 +113,6 @@ func _on_reaper_time() -> void:
 
 func _show_victory_title() -> void:
 	"""Affiche le titre VICTORY en haut de l'écran"""
-	#if victory_ui:
-	#	victory_ui.show()
-	#else:
-	#	push_warning("[VictoryManager] Pas de victory_ui assigné")
 	pass
 
 # ============================================================================
@@ -224,27 +220,6 @@ func _create_default_reaper_stats() -> EnemyStats:
 	stats.scale = 2.0  # Plus gros
 	# texture sera null, donc affichage par défaut
 	return stats
-
-# ============================================================================
-# END SCREEN
-# ============================================================================
-
-#func _show_end_screen() -> void:
-#	"""Affiche l'écran de fin simple avec bouton menu"""
-	# Pour l'instant, on affiche juste l'UI de victoire avec le bouton
-	# L'écran de score détaillé sera fait plus tard
-	
-	# Pause du jeu
-#	get_tree().paused = true
-	
-	# Affichage de l'UI (qui contient déjà le bouton retour menu)
-#	victory_ui.show()
-	
-	# Cacher le titre VICTORY, afficher le bouton
-#	if victory_ui.has_node("VictoryTitle"):
-#		victory_ui.get_node("VictoryTitle").hide()
-#	if victory_ui.has_node("EndScreenPanel"):
-#		victory_ui.get_node("EndScreenPanel").show()
 
 # ============================================================================
 # DEBUG

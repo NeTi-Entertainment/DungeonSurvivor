@@ -36,6 +36,13 @@ class_name MapConfig
 @export var spawn_phases: Array[SpawnPhase] = []
 
 # ============================================================================
+# DESTRUCTIBLES (Objets cassables)
+# ============================================================================
+
+@export_group("Destructibles")
+@export_range(0, 500, 5) var destructible_count: int = 50 # Nombre d'objets destructibles
+
+# ============================================================================
 # BOSS CHECKPOINTS (Phase 3)
 # ============================================================================
 

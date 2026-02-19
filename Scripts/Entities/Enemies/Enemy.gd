@@ -8,6 +8,7 @@ var is_dying: bool = false
 @export var is_boss: bool = false
 
 var player_ref: CharacterBody2D = null
+var status_manager: StatusManager = null
 @onready var sprite_2d = $Sprite2D
 @onready var collision_shape = $CollisionShape2D
 
@@ -20,6 +21,8 @@ var loot_bag_scene = preload("res://Scenes/Loot/LootBag.tscn")
 
 func _ready() -> void:
 	add_to_group("enemies")
+	status_manager = StatusManager.new()
+	add_child(status_manager)
 	var players = get_tree().get_nodes_in_group("player")
 	if players.size() > 0:
 		player_ref = players[0]
@@ -82,7 +85,11 @@ func take_damage(damage_amount: int, knockback_force: float = 0.0, knockback_dir
 	
 	var final_damage = damage_amount
 	if stats and stats.armor > 0:
-		final_damage = max(1, damage_amount - stats.armor)
+		var player_armor_pierce = 0.0
+		if is_instance_valid(player_ref):
+			player_armor_pierce = player_ref.armor_pierce
+		var effective_armor = max(0.0, stats.armor - player_armor_pierce)
+		final_damage = max(1, damage_amount - int(effective_armor))
 	current_hp -= final_damage
 	
 	if knockback_force > 0 and stats:
@@ -123,7 +130,11 @@ func die() -> void:
 			xp.setup(value)
 		_spawn_loot(xp)
 	
-	var coin_drop_chance = 0.5
+	#luck_mult = shop luck bonus + bait accessory + run bonuses
+	var luck_mult = 1.0
+	if is_instance_valid(player_ref):
+		luck_mult = player_ref.luck
+	var coin_drop_chance = clamp(0.5 * luck_mult, 0.0, 0.8)
 	if GameData.is_gold_rush_active:
 		coin_drop_chance = 1.0
 	
@@ -137,8 +148,8 @@ func die() -> void:
 			coin.setup(value)
 		else:
 			coin.value = value
+		_spawn_loot(coin)
 	
-	var luck_mult = 1.0
 	if is_instance_valid(player_ref):
 		luck_mult = player_ref.loot_drop_chance
 		
@@ -149,37 +160,11 @@ func die() -> void:
 		bag.setup(drop_data["id"], drop_data["type"])
 		_spawn_loot(bag)
 		
+	if status_manager:
+		status_manager.clear_all_statuses()
 	enemy_died.emit(self)
 	
 	queue_free()
-
-func apply_burn(dmg: int, tick_rate: float, duration: float):
-	var total_ticks = int(duration / tick_rate)
-	
-	if total_ticks <= 0: return
-
-	var burn_timer = Timer.new()
-	burn_timer.wait_time = tick_rate
-	burn_timer.one_shot = false
-	add_child(burn_timer)
-	
-	burn_timer.set_meta("ticks_left", total_ticks)
-	burn_timer.set_meta("damage", dmg)
-	
-	burn_timer.timeout.connect(func():
-		var ticks = burn_timer.get_meta("ticks_left")
-		var d = burn_timer.get_meta("damage")
-		
-		take_damage(d, 0, Vector2.ZERO)
-		
-		ticks -= 1
-		burn_timer.set_meta("ticks_left", ticks)
-		
-		if ticks <= 0:
-			burn_timer.queue_free()
-	)
-	
-	burn_timer.start()
 
 func _spawn_loot(loot_instance: Node2D):
 	loot_instance.global_position = global_position

@@ -31,7 +31,7 @@ func _physics_process(_delta):
 	
 	for body in bodies:
 		# Si c'est un ennemi qu'on n'a pas encore brûlé
-		if body.has_method("apply_burn") and body not in enemies_burned_history:
+		if "status_manager" in body and body.status_manager and body not in enemies_burned_history:
 			_apply_effect(body)
 
 # Configuration externe (appelée par l'arme)
@@ -47,7 +47,7 @@ func setup_stats(dmg, interval, duration, area_scale, chance_crit, dmg_crit):
 	target_scale = Vector2(area_scale, area_scale)
 
 func _apply_effect(body):
-	if body.has_method("apply_burn") and body not in enemies_burned_history:
+	if "status_manager" in body and body.status_manager and body not in enemies_burned_history:
 		# On marque l'ennemi comme "déjà brûlé par ce pentagramme"
 		enemies_burned_history.append(body)
 		
@@ -57,5 +57,9 @@ func _apply_effect(body):
 			final_damage = int(burn_damage * crit_damage)
 		# ----------------------
 		
-		# On applique le DoT sur l'ennemi
-		body.apply_burn(final_damage, burn_interval, burn_duration)
+		# On applique le DoT sur l'ennemi via le StatusManager
+		body.status_manager.apply_status("burn", {
+			"damage": final_damage,
+			"tick_rate": burn_interval,
+			"duration": burn_duration
+		})

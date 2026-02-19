@@ -2,6 +2,7 @@ extends Node
 
 signal loot_collected(item_id, amount)
 signal run_stats_updated
+signal damage_taken(amount: int, pos: Vector2, is_critical: bool)
 
 var debug_one_shot_mode: bool = false
 
@@ -97,16 +98,6 @@ func delete_save():
 	
 	# 2. On écrase le fichier de sauvegarde existant avec ces données vides
 	save_bank(0)
-
-# --- CHEAT CODES (P = +10k, O = -10k) ---
-func _unhandled_input(event):
-	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_P:
-			total_banked_gold += 10000
-			save_bank(0) # Sauvegarde immédiate
-		elif event.keycode == KEY_O:
-			total_banked_gold = max(0, total_banked_gold - 10000)
-			save_bank(0)
 
 # --- SYSTÈME DE BOUTIQUE (SHOP) ---
 
@@ -376,7 +367,7 @@ var accessory_data = {
 		"type": "stat_modifier",
 		"stat_target": "armor_pierce",
 		"value": 0.2,
-		"method": "additive",
+		"method": "add",
 		"max_level": 10
 	},
 	"quatuor_needle_dial": {
@@ -392,10 +383,10 @@ var accessory_data = {
 	"soul_collector": {
 		"name": "Collecteur d'Ames",
 		"icon": preload("res://Assets/Icon/SoulCollectorIcon.png"),
-		"description": "Attraction Range +10/niv",
+		"description": "Attraction Range +20%/niv",
 		"type": "stat_modifier",
 		"stat_target": "pickup_range",
-		"value": 10,
+		"value": 20,
 		"method": "add",
 		"max_level": 10
 	},
@@ -436,6 +427,7 @@ var weapon_data = {
 	# 1. TOR-OB1: Projecteur (Type B - Area/Tick)
 	"projector": {
 		"name": "Projecteur",
+		"accessory": "frequency_coil",
 		"type": "area",
 		"scene_path": "res://Scenes/Weapons/Base/WeaponProjector.tscn",
 		"stats": {
@@ -455,6 +447,7 @@ var weapon_data = {
 	# 2. KAT: Avant-bras à air comprimé (Type C - Unique/Directional)
 	"compressed_air_tank": {
 		"name": "Avant-bras à air",
+		"accessory": "wave_diffuser",
 		"type": "directional",
 		"scene_path": "res://Scenes/Weapons/Base/WeaponCompressedAir.tscn",
 		"stats": {
@@ -474,6 +467,7 @@ var weapon_data = {
 	# 3. ZZOKRUGUG: Lames Silex (Type B - Melee/Sweep)
 	"flint_blades": {
 		"name": "Lames Silex",
+		"accessory": "whetstone",
 		"type": "melee",
 		"scene_path": "res://Scenes/Weapons/Base/WeaponFlintBlades.tscn",
 		"stats": {
@@ -493,6 +487,7 @@ var weapon_data = {
 	# 4. IRVIKKTITI: Missiles Purificateurs (Type A - Projectile)
 	"purifying_missiles": {
 		"name": "Missiles Purificateurs",
+		"accessory": "judgment_lens",
 		"type": "projectile",
 		"scene_path": "res://Scenes/Weapons/Base/WeaponPurifyingMissiles.tscn",
 		"stats": {
@@ -512,6 +507,7 @@ var weapon_data = {
 	# 5. KHORMOL: Mâchoires Démoniaques (Type B - Melee/Cone)
 	"demonic_jaws": {
 		"name": "Mâchoires Démoniaques",
+		"accessory": "corrupt_ichor",
 		"type": "melee",
 		"scene_path": "res://Scenes/Weapons/Base/WeaponDemonJaws.tscn",
 		"stats": {
@@ -532,6 +528,7 @@ var weapon_data = {
 	# Axes will do one full rotation before disapearing. Duration is here to handle time axes will stay before vanishing.
 	"whirling_axes": {
 		"name": "Haches Tournoyantes",
+		"accessory": "war_paint",
 		"type": "orbital",
 		"scene_path": "res://Scenes/Weapons/Base/WeaponWhirlingAxes.tscn",
 		"stats": {
@@ -551,6 +548,7 @@ var weapon_data = {
 	# 7. PERMA: Dague Traceuse (Type A - Projectile/Bounce)
 	"tracer_dagger": {
 		"name": "Dague Traceuse",
+		"accessory": "acceleration_feather",
 		"type": "projectile",
 		"scene_path": "res://Scenes/Weapons/Base/WeaponTracerDagger.tscn",
 		"stats": {
@@ -570,6 +568,7 @@ var weapon_data = {
 	# 8. VIGO: Nanobots Sanguins (Type B - AoE/DoT)
 	"sanguine_nanobots": {
 		"name": "Nanobots Sanguins",
+		"accessory": "advanced_stitches_pack",
 		"type": "area",
 		"scene_path": "res://Scenes/Weapons/Base/WeaponSanguineNanobots.tscn",
 		"stats": {
@@ -590,6 +589,7 @@ var weapon_data = {
 	# Duration stands for the burn effect length, while cooldown is for the set up of the burn (summoning the pentagramm)
 	"infernal_pentagram": {
 		"name": "Pentagramme Infernal",
+		"accessory": "torment_hourglass",
 		"type": "area_timed",
 		"scene_path": "res://Scenes/Weapons/Base/WeaponInfernalPentagram.tscn",
 		"stats": {
@@ -609,6 +609,7 @@ var weapon_data = {
 	# 10. NAERUM: Mines-Piques
 	"spike_mine": {
 		"name": "Mines-Piques",
+		"accessory": "propagation_roots",
 		"type": "mine",
 		"scene_path": "res://Scenes/Weapons/Base/WeaponSpikeMine.tscn",
 		"stats": {
@@ -628,6 +629,7 @@ var weapon_data = {
 	# 11. SULPHURA: Feu Originel
 	"first_flame": {
 		"name": "Feu Originel",
+		"accessory": "titan_heart",
 		"type": "projectile",
 		"scene_path": "res://Scenes/Weapons/Base/WeaponFirstFlame.tscn",
 		"stats": {
@@ -647,6 +649,7 @@ var weapon_data = {
 	# 12. SSEROGHOL: Vague en Bouteille
 	"wave_in_a_bottle": {
 		"name": "Vague en Bouteille",
+		"accessory": "tides_amulet",
 		"type": "projectile",
 		"scene_path": "res://Scenes/Weapons/Base/WeaponWaveInABottle.tscn",
 		"stats": {
@@ -666,6 +669,7 @@ var weapon_data = {
 	# 13. HOJO: Canne à Pêche
 	"fishing_rod": {
 		"name": "Canne à Pêche",
+		"accessory": "bait",
 		"type": "melee",
 		"scene_path": "res://Scenes/Weapons/Base/WeaponFishingRod.tscn",
 		"stats": {
@@ -685,6 +689,7 @@ var weapon_data = {
 	# 14. GUHULGGHURU: Impact Cristallin
 	"crystalline_impact": {
 		"name": "Impact Cristallin",
+		"accessory": "chains_of_the_freed",
 		"type": "projectile",
 		"scene_path": "res://Scenes/Weapons/Base/WeaponCrystallineImpact.tscn",
 		"stats": {
@@ -705,6 +710,7 @@ var weapon_data = {
 	# For this weapon, pierce serves as an indicator for the times a projectile is redirected after hitting an enemy
 	"phase_shift_scepter": {
 		"name": "Sceptre de Déphasage",
+		"accessory": "quatuor_needle_dial",
 		"type": "projectile",
 		"scene_path": "res://Scenes/Weapons/Base/WeaponPhaseShiftScepter.tscn",
 		"stats": {
@@ -725,6 +731,7 @@ var weapon_data = {
 	# Maybe see knockback more as a 'slow' than a knockback because of the high attack speed
 	"soul_beam": {
 		"name": "Faisceau d'Ame",
+		"accessory": "soul_collector",
 		"type": "beam",
 		"scene_path": "res://Scenes/Weapons/Base/WeaponSoulBeam.tscn",
 		"stats": {
@@ -748,6 +755,7 @@ var weapon_data = {
 	# scale of the soldiers and duration is the time of life of each soldiers.
 	"horn_of_the_oppressed": {
 		"name": "Cor des Opprimés",
+		"accessory": "war_banner",
 		"type": "summon",
 		"scene_path": "res://Scenes/Weapons/Base/WeaponHornOfTheOppressed.tscn",
 		"stats": {
@@ -768,6 +776,7 @@ var weapon_data = {
 	# The 3 beams aren't global. They have a max range. Range stands for their range and area stands for the thickness of each beam.
 	"triseal": {
 		"name": "Trisceau",
+		"accessory": "inferlink",
 		"type": "beam",
 		"scene_path": "res://Scenes/Weapons/Base/WeaponTriseal.tscn",
 		"stats": {
@@ -787,6 +796,7 @@ var weapon_data = {
 	# 19. GNARLHOM: Pochette Crache-Pièce
 	"coin_spitting_pouch": {
 		"name": "Pochette Crache-Pièce",
+		"accessory": "jawed_chest",
 		"type": "projectile",
 		"scene_path": "res://Scenes/Weapons/Base/WeaponCoinSpittingPouch.tscn",
 		"stats": {
@@ -802,6 +812,24 @@ var weapon_data = {
 			10: {"damage": 4, "cooldown": 0.275, "tick_interval": null, "area": 1.0, "range": null, "duration": 2.0, "knockback": 1, "crit_chance": 0.1, "crit_damage": 1.4, "lifesteal": null, "projectile_speed": 1.75, "amount": 3, "pierce": 4},
 		}
 	}
+}
+
+var evolved_weapons_data = {
+	# Format pour chaque arme évoluée :
+	# "weapon_base_id": {
+	#     "evolution_1": {
+	#         "id": "evolved_weapon_id",
+	#         "name": "Nom Évolution 1",
+	#         "desc": "Description courte",
+	#         "scene_path": "res://Scenes/Weapons/Evolved/NomArme.tscn"
+	#     },
+	#     "evolution_2": {
+	#         "id": "evolved_weapon_id_2",
+	#         "name": "Nom Évolution 2",
+	#         "desc": "Description courte",
+	#         "scene_path": "res://Scenes/Weapons/Evolved/NomArme2.tscn"
+	#     }
+	# },
 }
 
 # --- SYSTEM FUNCTIONS ---
@@ -839,6 +867,8 @@ func get_stat_with_bonuses(base_value: float, stat_name: String) -> float:
 		"recovery": shop_key = "recovery"
 		"luck": shop_key = "chance"
 		"magnet": shop_key = "pickup_range"
+		"gold_gain": shop_key = "gold_gain"
+		"xp_gain": shop_key = "xp_gain"
 		
 	# Si on a un niveau dans cette stat en boutique
 	if shop_key in shop_unlocks:
@@ -868,7 +898,13 @@ func get_stat_with_bonuses(base_value: float, stat_name: String) -> float:
 		var lvl = current_accessories[acc_id]
 		var data = accessory_data.get(acc_id)
 		
-		if data and data.get("stat_target") == stat_name:
+		var acc_stat_target = data.get("stat_target") if data else ""
+		if acc_stat_target == "gold":
+			acc_stat_target = "gold_gain"
+		elif acc_stat_target == "experience":
+			acc_stat_target = "xp_gain"
+		
+		if data and acc_stat_target == stat_name:
 			var method = data.get("method")
 			var val_per_lvl = data.get("value")
 			
@@ -925,12 +961,12 @@ func add_accessory(id: String):
 
 # --- FONCTION DE CALCUL DE DROP (Double Roll) ---
 func calculate_loot_drop(player_luck_modifier: float, is_boss: bool = false) -> Dictionary:
-	if randf() < (0.01 * player_luck_modifier):#change back to 0.01 after tests done
+	if randf() < (0.007 * player_luck_modifier):
 		var buff_id = buffs_table.pick_random()
 		return {"id": buff_id, "type": "consumable"}
 	# ROLL 1 : Y a-t-il du loot ?
 	# Base 3% (0.03). Multiplié par la stat du joueur (ex: 1.5 pour +50% chance).
-	var drop_chance = 0.03 * player_luck_modifier
+	var drop_chance = 0.02 * player_luck_modifier
 	
 	# Les boss droppent toujours (100%)
 	if not is_boss and randf() > drop_chance:

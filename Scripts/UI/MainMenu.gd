@@ -47,6 +47,7 @@ extends Control
 @onready var btn_char_17: Button = $CharacterSelectMenu/LeftContainer/CharGrid/BtnChar17
 @onready var btn_char_18: Button = $CharacterSelectMenu/LeftContainer/CharGrid/BtnChar18
 @onready var btn_char_19: Button = $CharacterSelectMenu/LeftContainer/CharGrid/BtnChar19
+@onready var btn_char_20: Button = $CharacterSelectMenu/LeftContainer/CharGrid/BtnChar20
 
 # Popups inside Character Select
 @onready var customize_popup: Panel = $CharacterSelectMenu/CustomizePopup
@@ -139,6 +140,10 @@ var characters_data = {
 		"name": "Gnarlhom",
 		"desc": "Demon venu des cavernes profondes de la terre, incarnation meme de l'avidite des etres vivants."
 	},
+	"char20":{
+		"name": "[TEST] Évolution",
+		"desc": "Personnage de test pour armes évoluées.\n\nArme: Mâchoires Démoniaques\nTest évolution avec Ichor Corrompu"
+	},
 }
 
 func _ready() -> void:
@@ -201,6 +206,7 @@ func _ready() -> void:
 	if btn_char_17: btn_char_17.pressed.connect(func(): _on_character_selected("allucard"))
 	if btn_char_18: btn_char_18.pressed.connect(func(): _on_character_selected("liv, ficu & aduj"))
 	if btn_char_19: btn_char_19.pressed.connect(func(): _on_character_selected("gnarlhom"))
+	if btn_char_20: btn_char_20.pressed.connect(func(): _on_character_selected("test_evolution"))
 	
 	# Initial Focus
 	button_start.grab_focus()

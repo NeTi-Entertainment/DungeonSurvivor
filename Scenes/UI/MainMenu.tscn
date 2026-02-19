@@ -401,6 +401,17 @@ icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
 
+[node name="BtnChar20" type="Button" parent="CharacterSelectMenu/LeftContainer/CharGrid"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "[TEST] Evolutions"
+icon = ExtResource("2_72sra")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
 [node name="InfoPanel" type="Panel" parent="CharacterSelectMenu"]
 layout_mode = 1
 anchors_preset = 1

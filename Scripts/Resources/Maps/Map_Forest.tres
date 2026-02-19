@@ -56,6 +56,7 @@ spawn_rate_cycle_3 = 2.5
 spawn_distance = 1000.0
 spawn_distance_variance = 200.0
 spawn_phases = Array[ExtResource("20_ybpn0")]([ExtResource("21_sodyd"), ExtResource("22_py3k1"), ExtResource("23_fk5nk"), ExtResource("24_bsvnt"), ExtResource("25_bc6jk"), ExtResource("26_o31a4"), ExtResource("27_73yu3"), ExtResource("28_a8qdj"), ExtResource("29_nmp5n"), ExtResource("30_8xr66"), ExtResource("31_issyh"), ExtResource("32_hk5u6"), ExtResource("33_slil5"), ExtResource("34_o3xkd"), ExtResource("35_k0rgj"), ExtResource("36_jpxx4"), ExtResource("37_wqxhi"), ExtResource("38_au2go"), ExtResource("39_8gjba"), ExtResource("40_t7b15")])
+destructible_count = 50
 boss_3min = ExtResource("4_sodyd")
 boss_6min = ExtResource("5_py3k1")
 boss_9min = ExtResource("6_wvtjp")

@@ -18,6 +18,7 @@ var current_health: int = 100
 var current_gold: int = 0
 
 var armor: float = 0.0
+var armor_pierce: float = 0.0
 var pickup_range: float = 10.0
 var recovery: float = 0.0
 var saved_resources_ratio: float = 0.5
@@ -32,6 +33,8 @@ var _regen_accumulator: float = 0.0
 var reroll_count: int = 0
 var skip_count: int = 0
 var banish_count: int = 0
+
+var enemy_amount_multiplier: float = 1.0
 
 var is_god_mode: bool = false
 var speed_buff_multiplier: float = 1.0
@@ -129,6 +132,9 @@ func _ready() -> void:
 		"gnarlhom":
 			starting_weapon_id = "coin_spitting_pouch"
 			
+		"test_evolution":
+			starting_weapon_id = ""
+			
 		_:
 			starting_weapon_id = "projector"
 	
@@ -138,6 +144,8 @@ func _ready() -> void:
 		GameData.run_stats_updated.connect(update_stats)
 	
 	update_stats()
+	current_health = max_health
+	health_bar.value = current_health
 	
 	for child in get_children():
 		# On vérifie si c'est une arme (si elle a un script avec 'id' ou 'load_stats')
@@ -211,15 +219,19 @@ func update_stats():
 	var base_spd = 300.0
 	
 	max_health = int(GameData.get_stat_with_bonuses(base_hp, "health"))
+	if health_bar:
+		health_bar.max_value = max_health
 	armor = GameData.get_stat_with_bonuses(0.0, "armor")
 	recovery = GameData.get_stat_with_bonuses(0.0, "recovery")
 	saved_resources_ratio = GameData.get_stat_with_bonuses(0.5, "saved_resources")
 	movement_speed = GameData.get_stat_with_bonuses(base_spd, "movement_speed")
 	gold_gain_multiplier = GameData.get_stat_with_bonuses(1.0, "gold_gain")
 	xp_gain_multiplier = GameData.get_stat_with_bonuses(1.0, "xp_gain")
-	loot_drop_chance = GameData.get_stat_with_bonuses(1.0, "loot_chance")
 	pickup_range = GameData.get_stat_with_bonuses(10.0, "pickup_range")
-	luck = GameData.get_stat_with_bonuses(1.0, "chance")
+	armor_pierce = GameData.get_stat_with_bonuses(0.0, "armor_pierce")
+	enemy_amount_multiplier = GameData.get_stat_with_bonuses(1.0, "enemy_amount")
+	luck = GameData.get_stat_with_bonuses(1.0, "luck")
+	loot_drop_chance = luck
 	
 	# Mise à jour collision shape (Ton code existant)
 	if pickup_area and pickup_area.has_node("CollisionShape2D"):
@@ -241,7 +253,7 @@ func update_stats():
 	banish_count = int(GameData.get_stat_with_bonuses(0.0, "banish"))
 	print("\n=== [DEBUG] STATS GLOBALES APRÈS CALCUL (BUFF INCLUS) ===")
 	print("JOUEUR | HP Max: %s | Armure: %s | Vitesse: %s | Récup: %s" % [max_health, armor, movement_speed, recovery])
-	print("JOUEUR | Chance: %s | Portée Attraction: %s" % [luck, pickup_range])
+	print("JOUEUR | Chance: %s | Portée Attraction: %s | Perce-Armure: %s" % [luck, pickup_range, armor_pierce])
 	print("JOUEUR | Multipliers -> Or: %s | XP: %s" % [gold_gain_multiplier, xp_gain_multiplier])
 	
 	# Log spécifique pour les armes (on vérifie le WeaponsHolder)

@@ -26,6 +26,8 @@ var game_scene: Node2D # Référence à la scène Game pour add_child des ennemi
 # ÉTAT DU SPAWN
 # ============================================================================
 
+const MIN_SPAWN_INTERVAL: float = 0.20
+
 #var current_cycle: int = 1
 var is_spawning_active: bool = false
 var is_in_silence: bool = false
@@ -70,26 +72,7 @@ func setup(p_player: CharacterBody2D, p_map_config: MapConfig, p_game_scene: Nod
 	GameTimer.silence_started.connect(_on_silence_started)
 	GameTimer.silence_ended.connect(_on_silence_ended)
 	
-#	_setup_spawn_timer()
-#	_connect_to_game_timer()
-	
 	print("[WaveManager] Initialisé - Map: %s" % map_config.map_name)
-
-#func _setup_spawn_timer() -> void:
-#	"""Crée et configure le timer de spawn"""
-#	spawn_timer = Timer.new()
-#	spawn_timer.one_shot = false
-#	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
-#	add_child(spawn_timer)
-#	
-#	# Configure le wait_time initial selon le cycle 1
-#	_update_spawn_rate()
-
-#func _connect_to_game_timer() -> void:
-#	"""Connecte aux signaux du GameTimer"""
-#	GameTimer.cycle_changed.connect(_on_cycle_changed)
-#	GameTimer.silence_started.connect(_on_silence_started)
-#	GameTimer.silence_ended.connect(_on_silence_ended)
 
 # ============================================================================
 # CONTRÔLE DU SPAWN
@@ -152,24 +135,24 @@ func _physics_process(_delta: float) -> void:
 	# 1. MEUTE (PACK)
 	if active_phase.pack_enabled and current_time >= next_pack_time:
 		_spawn_pack_pattern()
-		next_pack_time = current_time + active_phase.pack_interval
+		next_pack_time = current_time + _get_effective_interval(active_phase.pack_interval)
 		
 	# 2. CERCLE
 	if active_phase.circle_enabled and current_time >= next_circle_time:
 		_spawn_circle_pattern()
-		next_circle_time = current_time + active_phase.circle_interval
+		next_circle_time = current_time + _get_effective_interval(active_phase.circle_interval)
 		
 	# 3. LIGNE
 	if active_phase.line_enabled and current_time >= next_line_time:
 		_spawn_line_pattern()
-		next_line_time = current_time + active_phase.line_interval
+		next_line_time = current_time + _get_effective_interval(active_phase.line_interval)
 
 func _on_spawn_timer_timeout() -> void:
 	if not is_spawning_active or is_in_silence:
 		return
 		
 	if active_phase:
-		spawn_timer.wait_time = active_phase.spawn_interval
+		spawn_timer.wait_time = _get_effective_interval(active_phase.spawn_interval)
 		spawn_timer.start()
 		
 		# Spawn normal (Background noise)
@@ -197,22 +180,22 @@ func _on_phase_changed(current_time: float) -> void:
 	if not active_phase: return
 	
 	# Mise à jour du timer de base
-	spawn_timer.wait_time = active_phase.spawn_interval
+	spawn_timer.wait_time = _get_effective_interval(active_phase.spawn_interval)
 	if spawn_timer.is_stopped():
 		spawn_timer.start()
 		
 	# Initialisation des timers de patterns pour qu'ils ne pop pas INSTANTANÉMENT au début de la phase
 	# On leur donne leur délai respectif à partir de MAINTENANT
-	next_pack_time = current_time + active_phase.pack_interval
-	next_circle_time = current_time + active_phase.circle_interval
-	next_line_time = current_time + active_phase.line_interval
+	next_pack_time = current_time + _get_effective_interval(active_phase.pack_interval)
+	next_circle_time = current_time + _get_effective_interval(active_phase.circle_interval)
+	next_line_time = current_time + _get_effective_interval(active_phase.line_interval)
 
 func _update_phase_and_timers() -> void:
 	# Force la mise à jour immédiate (utile après un Silence ou Start)
 	var t = GameTimer.get_elapsed_time()
 	active_phase = _get_active_phase(t)
 	if active_phase:
-		spawn_timer.wait_time = active_phase.spawn_interval
+		spawn_timer.wait_time = _get_effective_interval(active_phase.spawn_interval)
 		if spawn_timer.is_stopped(): spawn_timer.start()
 
 # --- SPAWNERS SPÉCIFIQUES ---
@@ -335,3 +318,18 @@ func get_stats() -> Dictionary:
 		"total_spawned": total_enemies_spawned,
 		"active_phase": active_phase.resource_path if active_phase else "None"
 	}
+
+# HELPERS
+
+func _get_enemy_amount_multiplier() -> float:
+	"""Lit le multiplicateur de quantité d'ennemis depuis le joueur.
+	Retourne 1.0 si le joueur n'est pas valide (aucun effet)."""
+	if is_instance_valid(player) and "enemy_amount_multiplier" in player:
+		return player.enemy_amount_multiplier
+	return 1.0
+
+func _get_effective_interval(base_interval: float) -> float:
+	"""Applique le multiplicateur War Banner à un intervalle, avec cap de sécurité.
+	Plus le multiplicateur est élevé, plus l'intervalle est court (plus de spawns)."""
+	var mult = _get_enemy_amount_multiplier()
+	return max(MIN_SPAWN_INTERVAL, base_interval / mult)
